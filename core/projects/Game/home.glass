@@ -157,14 +157,16 @@ float volumeTest = .3
 		]
 		
         fov: 74
-        columns: 275
+        >>columns: 275<<
+		columns: 45
         fogColor: #000000
         fogRange: 11
         parent: player
         collide: true
         mazeID: 1
         cellSize: 40
-		size: 640x480
+		>>size: 640x480<<
+		size: 180x180
     }
 
     vcr.colide "player" { size: 8, color: #00000000, x: 180, y: 220, svc: 101 }
@@ -190,7 +192,7 @@ float volumeTest = .3
 
 
     setup {
-		loadPost(test)
+		>>loadPost(test)<<
 		
 		angle = 0
 
@@ -269,11 +271,14 @@ float volumeTest = .3
                 raycast.cast(1, 101)
 				Ammo = Ammo - 1
                 if (hitType == 1) {
-                    destroy(hitSvc)
-                    Kills = Kills + 1
-					
-                    burst(hitX, hitY, "#ffcb6b", 24, 160, true, true, 0.35, 1.0)
-					audio.playSound "Audio/death-splat.mp3" { volume: .2, is3D: true, realtimeRef: false, radius: 22, loop: false, x: hitX, y: hitY  }
+					if (properties.get(hitSvc, getProperty.tag("enemy")) == 1) {
+						destroy(hitSvc)
+											
+                    	burst(hitX, hitY, "#ffcb6b", 24, 160, true, true, 0.35, 1.0)
+						audio.playSound "Audio/death-splat.mp3" { volume: .2, is3D: true, realtimeRef: false, radius: 22, loop: false, x: hitX, y: hitY  }
+						Kills = Kills + 1
+					}
+                    
                 }
             }
 
