@@ -138,6 +138,13 @@ if errorlevel 1 (
   exit /b 1
 )
 
+REM --- check for an update before anything else - if one changes           ----
+REM     requirements.txt, the pip install step right after this picks it up
+REM     automatically. Uses bare system python (updater.py is stdlib-only,
+REM     no venv needed yet) and never blocks launch: offline, GitHub
+REM     rate-limited, no releases yet, whatever - it just falls through.
+python "%~dp0updater.py"
+
 if not exist "%~dp0.venv\Scripts\python.exe" (
   echo   [*] First run: creating a local environment...
   python -m venv "%~dp0.venv"

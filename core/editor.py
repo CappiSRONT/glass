@@ -742,6 +742,27 @@ _EXTRA_DOCS["getProperty.kind"] = ("A selector for properties.get \u2013 the "
     "\"gif\"/\"video\"), set once when it was created. A fallback for \"what "
     "kind of thing did I hit\" when you haven't tagged everything.", [
     ("Example", 'k = properties.get(svc: hitSvc, getProperty.kind)\nif (k == "colide") { }')])
+_EXTRA_DOCS["vcr.tiledTrigger"] = ("A tile-grid-aligned rectangular trigger zone - "
+    "unlike vcr.colide { istrigger: true }, which is a single point-ish "
+    "collider, this covers a whole rectangle of MAP TILES (matching the "
+    "raycast map's own per-char grid, not pixels). x/y are still pixel "
+    "position like every other vcr.* element - {sizeX, sizeY, sizeZ} sets "
+    "how many tiles wide (X) and deep (Z) from there. sizeY is accepted for "
+    "symmetry with every other {x,y,z} vector here but unused - levels are "
+    "single-floor, so there's no vertical extent to give it. Never blocks "
+    "movement (like istrigger). Check it with collide.detectTrigger(svc).", [
+    ("Anything sets it off", 'vcr.tiledTrigger "hallway" { {5,1,2}, x: 80, y: 80, svc: 200, tag: "trap" }'),
+    ("Only the player sets it off", 'vcr.tiledTrigger "doorZone" { {3,1,2}, x: 80, y: 80, svc: 201, tag: "door", collideableTag: "player" }')])
+_EXTRA_DOCS["collideableTag"] = ("On vcr.tiledTrigger only: which tag can set "
+    "it off. Empty (the default) means any real collider counts - player, "
+    "enemies, physics-pushed objects. Set it to only respond to one kind of "
+    "object. Other triggers (including other tiledTriggers) can never set "
+    "one off, tag or no tag.", [("Example", 'collideableTag: "player"')])
+_EXTRA_DOCS["collide.detectTrigger"] = ("svc of a real collider currently "
+    "inside a vcr.tiledTrigger's zone (respecting its collideableTag), or "
+    "\"\" if none. Re-checks fresh every call - there's nothing to reset.", [
+    ("Basic check", 'if (collide.detectTrigger(200) != "") {\n    >> something matching is standing in it <<\n}'),
+    ("Who exactly", 'hitSvc = collide.detectTrigger(200)\nif (hitSvc != "") { destroy(hitSvc) }')])
 _EXTRA_DOCS["size"] = ("On a raycastObject: billboard size (1 = full cell, 0.4 = small like a coin).", [("Example", "size: 0.4")])
 _EXTRA_DOCS["raycastObject"] = ("A Doom-style billboard shown inside a raycast 3D "
     "view (always faces the camera). Give it a sprite or color; collide: true makes "
@@ -1053,6 +1074,7 @@ DECL_KEYS = {"string", "int", "float", "double", "bool", "boolean", "number", "l
 MENU_KEYS = {"menu.full", "menu.ui", "menu.dynamic"}
 ELEMENT_KEYS = {"main", "menu", "holder", "panel", "bar", "button", "link", "text",
                 "label", "input", "separator", "image", "vcr.image", "vcr.video",
+                "vcr.colide", "vcr.gif", "vcr.raycastObject", "vcr.tiledTrigger",
                 "scale", "center", "collider", "grab", "particleSystem", "webInput",
              "raycast", "material", "raycastObject", "light", "overrideOPLim",
              "postEffect"} | DECL_KEYS | MENU_KEYS
@@ -1067,7 +1089,8 @@ PROPERTY_KEYS = {"color", "background", "backgroundColor", "width", "height", "s
                  "fogColor", "fogRange", "fogAmount", "mazeID", "collide",
                  "floorMap", "roofMap", "type", "ambient", "intensity", "shadowCaster",
                  "ramAllocated", "useCPU", "useGPU", "useARam", "tag", "mode", "light",
-                 "bounceA", "sizeOverLife", "radius", "realtimeRef", "is3D"}
+                 "bounceA", "sizeOverLife", "radius", "realtimeRef", "is3D",
+                 "collideableTag"}
 ACTION_KEYS = {"action", "set", "do", "call", "js", "url", "target", "openNew",
                "getGlass", "navigate", "reload", "reloadui", "back", "forward",
                "home", "newtab", "closetab", "devtools", "openeditor", "viewsource",
@@ -1080,7 +1103,7 @@ SCRIPT_KEYS = {"input.getHeld", "input.getClick", "adjvcr", "adjvcr.detect",
                "screen.height", "physics.gravity", "pref.save", "pref.load",
                "audio.playSound", "audio.gatherClip", "audio.playLast",
                "audio.pauseCurrent", "audio.changeVolume", "audio.isPlaying",
-               "audio.getAudioId", "return", "after", "create", "burst", "random", "rand", "lerp", "clamp", "min", "max", "abs", "sqrt", "sin", "cos", "floor", "round", "repeat", "for", "collide.createMesh", "collide.detect", "properties.get", "getProperty.position", "getProperty.scale", "getProperty.rotation", "getProperty.distance", "getProperty.tag", "getProperty.size", "getProperty.friction", "getProperty.isTrigger", "getProperty.velocity", "getProperty.speed", "getProperty.kind", "raycast.cast", "destroy", "spawnObject", "exists", "clone", "create", "physics.push", "physics.stop", "physics.hitWall", "nav.setDestination", "nav.follow", "nav.reachable", "nav.stop", "nav.arrived", "nav.remainingDistance", "lightmap.generate", "lightmap.grab", "dUMR", "ram.overLimit", "alert", "properties.get.tag", "properties.get.tags",
+               "audio.getAudioId", "return", "after", "create", "burst", "random", "rand", "lerp", "clamp", "min", "max", "abs", "sqrt", "sin", "cos", "floor", "round", "repeat", "for", "collide.createMesh", "collide.detect", "collide.detectTrigger", "properties.get", "getProperty.position", "getProperty.scale", "getProperty.rotation", "getProperty.distance", "getProperty.tag", "getProperty.size", "getProperty.friction", "getProperty.isTrigger", "getProperty.velocity", "getProperty.speed", "getProperty.kind", "raycast.cast", "destroy", "spawnObject", "exists", "clone", "create", "physics.push", "physics.stop", "physics.hitWall", "nav.setDestination", "nav.follow", "nav.reachable", "nav.stop", "nav.arrived", "nav.remainingDistance", "lightmap.generate", "lightmap.grab", "dUMR", "ram.overLimit", "alert", "properties.get.tag", "properties.get.tags",
                "light.create", "light.setColor", "light.setPos", "light.destroy",
                "loadPost", "removePost", "postQuality"}
 VALUE_KEYS = {"pixel", "standR", "true", "false"}
@@ -1292,6 +1315,7 @@ SNIPPETS = {
     "vcr.gif":   f'vcr.gif "{_C}" {{ size: 64, svc: 2 }}',
     "vcr.video": f'vcr.video "{_C}" {{ size: 320x180, settings: true, svc: 3 }}',
     "vcr.colide": f'vcr.colide "{_C}" {{ size: 40, {{40,40}}, x: 0, y: 0, svc: 100 }}',
+    "vcr.tiledTrigger": f'vcr.tiledTrigger "{_C}" {{ {{3,1,3}}, x: 0, y: 0, svc: 200, tag: "trigger", collideableTag: "player" }}',
     # packages
     "import": f'import {_C}',
     "call":   f'call: {_C}',

@@ -33,6 +33,12 @@ if ! command -v "$PY" >/dev/null 2>&1; then
   exit 1
 fi
 
+# check for an update before anything else - if one changes requirements.txt,
+# the pip install step right after this picks it up automatically. Uses bare
+# system python (updater.py is stdlib-only, no venv needed yet) and never
+# blocks launch: offline, GitHub rate-limited, no releases yet - falls through.
+"$PY" updater.py
+
 if [ ! -x ".venv/bin/python" ]; then
   echo "  [*] First run: creating a local environment..."
   "$PY" -m venv .venv

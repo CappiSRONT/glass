@@ -16,15 +16,15 @@ and your own `api.py`.
 ## Run it (Windows)
 
 1. Install Python 3.10+ (check **Add to PATH**).
-2. Double-click **`run.bat`** (or run `python launch.py`).
+2. Double-click **`run.bat`** (or run `python core/launch.py`).
 
 The **first launch installs everything automatically** — if PyQt6 /
 PyQt6-WebEngine are missing, Glass pip-installs them and then opens. That check
 runs on every start, so if a dependency ever goes missing it self-heals next
-time. On macOS / Linux use **`./run.sh`** (or `python3 launch.py`).
+time. On macOS / Linux use **`./run.sh`** (or `python3 core/launch.py`).
 
 The **editor** opens from the browser's **Edit** button, with **Ctrl+E**, or by
-running `python editor.py`. Put the browser on one half of your screen and the
+running `python core/editor.py`. Put the browser on one half of your screen and the
 editor on the other — the editor's right pane previews your UI as you type.
 
 ## The editor

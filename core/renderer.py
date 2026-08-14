@@ -765,6 +765,33 @@ def _vcr(node, scope):
         obj.widget = None                        # drawn by the raycaster, not as a widget
         return None
 
+    if kind.lower() == "tiledtrigger":          # a tile-grid-aligned trigger zone
+        obj.kind = "tiledtrigger"
+        # the bare {sizeX, sizeY, sizeZ} shorthand always lands in
+        # props["collider"] as a plain comma string (see dsl.py's _fill_body -
+        # that's a generic mechanism shared by every vcr.* element, not
+        # specific to this one). _register_vcr already read the first TWO
+        # numbers of it into obj.collider (its own, unrelated, pixel-space
+        # convention) - re-read the raw string ourselves here instead, since
+        # we want the FIRST and THIRD numbers (X and Z; Y is accepted for
+        # symmetry with every other {x,y,z} vector in this DSL but unused -
+        # levels are single-floor, so there's no vertical extent to give it).
+        raw = str(p.get("collider", "1,1,1"))
+        tparts = [x for x in re.split(r"[ ,]+", raw.strip()) if x]
+        tile_x = _to_float(tparts[0], 1.0) if len(tparts) >= 1 else 1.0
+        tile_z = (_to_float(tparts[2], 1.0) if len(tparts) >= 3 else
+                  _to_float(tparts[1], 1.0) if len(tparts) >= 2 else 1.0)
+        obj.tile_w = max(0.0, tile_x)
+        obj.tile_h = max(0.0, tile_z)
+        obj.collider = None                     # not a pixel-space collider - see tile_w/tile_h
+        obj.istrigger = True                    # never blocks movement, same as istrigger:true
+        obj.collideable_tag = _interp(str(p.get("collideableTag", "")), scope).strip()
+        obj.mazeid = _to_int(p.get("mazeID", p.get("mazeid", 1)), 1)
+        obj.x = _num(p, "x", 0)
+        obj.y = _num(p, "y", 0)
+        obj.widget = None                       # a logical zone, not drawn as a widget
+        return None
+
     if kind == "video":
         w = _vcr_video(name, p, tw, th)
     elif kind == "gif":

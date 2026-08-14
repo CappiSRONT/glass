@@ -69,7 +69,7 @@ class VCRObject:
     """An image/gif/video/collider placed by a vcr.* element, addressed by svc."""
     def __init__(self, svc, kind="image"):
         self.svc = str(svc)
-        self.kind = kind                 # image | gif | video | colide
+        self.kind = kind                 # image | gif | video | colide | tiledtrigger
         self.x = 0.0
         self.y = 0.0
         self.rot = 0.0                   # degrees
@@ -87,6 +87,17 @@ class VCRObject:
         self.vx = 0.0                    # velocity (physics.push) - px per frame
         self.vy = 0.0
         self._hitwall = False            # set when a moving object stops at a wall
+        # vcr.tiledTrigger only - a tile-grid-aligned rectangular trigger zone.
+        # Kept as raw TILE counts (not pixels) so the tile->pixel conversion
+        # happens fresh in collide.detectTrigger using the maze's actual
+        # cellsize at check-time, regardless of whether raycast{} or this
+        # element was declared first in the source.
+        self.tile_w = 1.0                # footprint width, in tiles (the DSL's sizeX)
+        self.tile_h = 1.0                # footprint depth, in tiles (the DSL's sizeZ -
+                                          # sizeY is accepted but unused; levels are
+                                          # single-floor, so there's no vertical extent)
+        self.collideable_tag = ""        # "" = any real collider sets it off
+        self.mazeid = 1                  # which maze's cellsize to use for tile size
 
     def aabb(self):
         cw, ch = self.collider if self.collider else (self.w, self.h)
@@ -302,6 +313,10 @@ class World:
         obj.friction = src.friction
         obj.istrigger = src.istrigger
         obj.tag = getattr(src, "tag", "")
+        obj.tile_w = getattr(src, "tile_w", 1.0)
+        obj.tile_h = getattr(src, "tile_h", 1.0)
+        obj.collideable_tag = getattr(src, "collideable_tag", "")
+        obj.mazeid = getattr(src, "mazeid", 1)
         obj.collide = getattr(src, "collide", False)
         obj.rc_scale = getattr(src, "rc_scale", 1.0)
         obj.rc_color = getattr(src, "rc_color", None)
@@ -2299,6 +2314,35 @@ def _resolve(parts, args, w):
             return 1.0 if maze._solid(obj.x / maze.cellsize, obj.y / maze.cellsize) else 0.0
         except Exception:
             return 0.0
+    if p == ["collide", "detecttrigger"]:
+        # collide.detectTrigger(triggerSvc) -> svc of a real collider currently
+        # inside this vcr.tiledTrigger's zone (respecting collideableTag if
+        # set - "" means any real collider counts), or "" if none. Other
+        # triggers (istrigger objects, including other tiledTriggers) can
+        # never set one off - only actual solid-ish colliders (player,
+        # enemies, physics-pushed objects) can. Tile size -> pixel bounds is
+        # recomputed fresh from the maze's current cellsize every call, not
+        # baked in at parse time, so declaration order between raycast{} and
+        # vcr.tiledTrigger in the source never matters.
+        if not args:
+            return ""
+        trig = w.get(args[0])
+        if trig is None or getattr(trig, "kind", "") != "tiledtrigger":
+            return ""
+        maze = w.mazes.get(_mid(getattr(trig, "mazeid", 1)))
+        cs = maze.cellsize if maze is not None else 40.0
+        tw = getattr(trig, "tile_w", 1.0) * cs
+        th = getattr(trig, "tile_h", 1.0) * cs
+        tbox = (trig.x, trig.y, tw, th)
+        want_tag = getattr(trig, "collideable_tag", "") or ""
+        for o in w.objects.values():
+            if o is trig or not o.has_collider() or getattr(o, "istrigger", False):
+                continue
+            if want_tag and getattr(o, "tag", "") != want_tag:
+                continue
+            if _overlap(tbox, o.aabb()):
+                return o.svc
+        return ""
     if p == ["lerp"] and len(args) >= 3:
         t = _num(args[2])
         a, b = args[0], args[1]

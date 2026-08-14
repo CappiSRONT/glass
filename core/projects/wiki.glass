@@ -557,6 +557,32 @@ With  collide: true  and  parent: player  on the raycast, the player now stops a
 
     collide.detect(svc, 1)   >> 1 if that object is inside a wall <<" { color: #c9d1d9 }
         separator
+        text "TRIGGER ZONES (DETECT WITHOUT BLOCKING)" { color: #6cf09a, font: H }
+        text "Sometimes you want to know something touched a spot WITHOUT it stopping there - a pressure plate, a level-exit doorway, a damage floor. Two ways to do that:
+
+    vcr.colide \"coin\" { size: 26, {26,26}, istrigger: true, svc: 200 }
+
+A single point-ish collider that never blocks movement -  istrigger: true  is the whole trick. Good for a coin, a pickup, one specific spot.
+
+For a whole AREA instead of one point - a hallway, a room, a whole doorway - use  vcr.tiledTrigger  instead. Its size is in MAP TILES, the same grid your raycast  map  is built from, not pixels:
+
+    vcr.tiledTrigger \"doorZone\" { {3,1,2}, x: 80, y: 80, svc: 201, tag: \"door\", collideableTag: \"player\" }
+
+{3,1,2} is {tilesWide, tilesTall(unused), tilesDeep} - a 3x2 tile rectangle starting at x:80, y:80. The middle number is accepted so this matches every other {x,y,z} vector in the language, but does nothing - levels here are single-floor, so there's no vertical size to give it.
+
+collideableTag is the filter: leave it empty and ANY real collider sets the zone off. Set it to one tag - like \"player\" above - and only objects with that exact tag can trigger it; everything else just walks through unnoticed. Other triggers can never set off a tiledTrigger, tag or no tag - only real, solid-ish colliders count.
+
+Check either kind of trigger the same way, with the point-vs-area check that matches what you built:
+
+    collide.detectTrigger(201)   >> svc of whatever's standing in doorZone, or \"\" if nothing is <<
+
+    update {
+        hitSvc = collide.detectTrigger(201)
+        if (hitSvc != \"\") {
+            >> the door zone triggered - open a door, load the next area, whatever you want <<
+        }
+    }" { color: #c9d1d9 }
+        separator
         text "SHOOTING (RAY QUESTIONS)" { color: #6cf09a, font: H }
         text "raycast.cast shoots an invisible ray and tells you the FIRST thing it hits. Use it for guns, but also for 'can this enemy see me?' and sensors:
 
@@ -1030,13 +1056,17 @@ after 2s { }   repeat n { }      screen.width / screen.height" { color: #c9d1d9 
         text "input.getHeld(\"key\")  input.getClick(\"key\")  mouse.dx  mouse.down  cursor.lock
 Name = input \"...\" { }   >> binds what's typed to a variable <<   webInput  >> address bar <<" { color: #c9d1d9 }
         text "Objects" { color: #ffed3c, font: T }
-        text "vcr.image  vcr.gif  vcr.video  vcr.colide  vcr.raycastObject   adjvcr(turn, move, scale, svc)
+        text "vcr.image  vcr.gif  vcr.video  vcr.colide  vcr.raycastObject  vcr.tiledTrigger   adjvcr(turn, move, scale, svc)
 spawnObject  create  clone  destroy  exists   tag: name   properties.get.tag(\"n\")   properties.get.tags(\"n\")" { color: #c9d1d9 }
         text "Vectors / info" { color: #ffed3c, font: T }
         text "{x,y,z}   properties.get(svc: N, getProperty.position/scale/rotation/velocity/size [.x])
 getProperty.distance(a,b)   .tag(\"n\") ->1/0   .isTrigger  .friction  .speed  .kind ->string" { color: #c9d1d9 }
         text "3D world" { color: #ffed3c, font: T }
         text "raycast { material map floorMap roofMap fov columns fog parent collide mazeID }" { color: #c9d1d9 }
+        text "Collision / triggers" { color: #ffed3c, font: T }
+        text "collide.createMesh(maze)   collide.detect(svc, maze) -> in a wall?
+vcr.colide { istrigger: true }  >> point trigger <<   vcr.tiledTrigger { {x,y,z}, collideableTag: \"n\" }  >> area trigger, tiles not px <<
+collide.detectTrigger(triggerSvc) -> svc that's in it, or \"\"" { color: #c9d1d9 }
         text "Shooting / physics" { color: #ffed3c, font: T }
         text "raycast.cast(maze, svc) -> hitType hitSvc hitDist hitX hitY
 physics.push(svc, {dx,dy,dz})  physics.hitWall  physics.stop   physics.gravity(700)  >> 2D falling <<" { color: #c9d1d9 }
