@@ -1,0 +1,19 @@
+{
+  "name": "Ocean",
+  "background": "#0b1622",
+  "foreground": "#cbd8e6",
+  "gutterBg": "#08111b",
+  "gutterFg": "#33506b",
+  "currentLine": "#10202f",
+  "selection": "#1d3a52",
+  "keyword": "#5ccfe6",
+  "type": "#73d0ff",
+  "element": "#7aa2f7",
+  "function": "#ffcc66",
+  "property": "#95e6cb",
+  "string": "#bae67e",
+  "number": "#ffae57",
+  "hexcolor": "#ffd580",
+  "comment": "#4b6479",
+  "punctuation": "#6679a4"
+}

@@ -1,0 +1,19 @@
+*.main {
+    menu.full
+    background: #0f1419
+    center { center }
+    title: Home
+
+    textgroup { Body, consolas }
+	text "Welcome to glass!" { color: #a3ff4f }
+    text "Your space to think; no ads, no AI, no tracking." { color: #6cf09a, font: Body, width: 350, center: center }
+
+    webInput "Search or enter address" { width: 440, height: 38, font: Body}
+	text "Root Directors" { color: #bd5734d2 }
+    button { { color: #1e88e5, width: 200, height: 38, textgroup: Body } "Wikipedia" } { url: https://wikipedia.org }
+    button { { color: #1e88e5, width: 200, height: 38, textgroup: Body } "DuckDuckGo" } { url: https://duckduckgo.com/html/ }
+    button { { color: #2e7d32, width: 200, height: 38, textgroup: Body } "Open the Glass Editor" } { action: openeditor }
+    button { { color: #6d4caf, width: 200, height: 38, textgroup: Body } "Open the Glass Wiki" } { action: wiki }
+
+	text "Current Version: 0.0.1" { color: #fffc2d, font: Body, width:300, center: center }
+}

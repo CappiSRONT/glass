@@ -1,0 +1,61 @@
+/* Glass cosmetic filtering - injected into every page.
+   Hides common ad/promo containers that aren't separate network requests.
+   Edit freely; restart (or it re-injects on next page load). */
+
+[id^="google_ads"],
+[id^="div-gpt-ad"],
+[id*="-ad-"],
+[id^="ad-"],
+[id$="-ad"],
+[id="ad"],
+[id="ads"],
+[id="adBanner"],
+[id="adsense"],
+[class~="ad"],
+[class~="ads"],
+[class~="adsbox"],
+[class~="advertisement"],
+[class~="sponsored"],
+[class~="banner-ad"],
+[class~="textad"],
+[class*="ad-slot"],
+[class*="ad-container"],
+[class*="ad-wrapper"],
+[class*="ad-banner"],
+[class*="ad-placement"],
+[class*="sponsored"],
+[class*="advert"],
+[data-ad],
+[data-ad-slot],
+[data-ad-client],
+[aria-label="advertisement" i],
+ins.adsbygoogle,
+iframe[src*="doubleclick"],
+iframe[src*="googlesyndication"],
+iframe[src*="/ads/"],
+iframe[id^="google_ads"],
+.taboola,
+[id^="taboola"],
+.outbrain,
+[data-widget-id*="outbrain"] {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    width: 0 !important;
+}
+
+/* ---- YouTube ad clutter (in-stream video ads are skipped via JS) ---- */
+#masthead-ad,
+ytd-banner-promo-renderer,
+ytd-display-ad-renderer,
+ytd-ad-slot-renderer,
+ytd-in-feed-ad-layout-renderer,
+ytd-promoted-sparkles-web-renderer,
+ytd-promoted-video-renderer,
+ytd-companion-slot-renderer,
+ytd-player-legacy-desktop-watch-ads-renderer,
+.ytp-ad-overlay-slot,
+.ytp-ad-module,
+#player-ads {
+    display: none !important;
+}

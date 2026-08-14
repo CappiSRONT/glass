@@ -1,0 +1,8 @@
+{
+  "name": "PackageDemo",
+  "version": 1,
+  "entry": "home.glass",
+  "scripts": [
+    "home.glass"
+  ]
+}

@@ -1,0 +1,20 @@
+>>  A demo of the package + import system. <<
+import demo
+
+string Status = "idle"
+int Clicks = 0
+
+*.main {
+    menu.full
+    background: #0d1117
+
+    title: "Package Demo" { center: center, color: #6cf09a }
+
+    text "This UI calls real Python from demo.py" {}
+    text "Status: {Status}" {}
+    text "Clicks: {Clicks}" {}
+
+    button "Run Python" { call: demo.run }
+    button "Add one" { call: demo.add }
+    button "Background job" { call: demo.slow }
+}

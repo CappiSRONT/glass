@@ -1,0 +1,287 @@
+>> ===========================================================================
+>> Corridor Siege - a big 26x26 level, 5 AIs pathfinding around walls to <<
+>> hunt you down. Showcases: #overrideOPLim (RAM check + popup + useCPU <<
+>> raising the pathfinding budget for 5 simultaneous agents on a big map),<<
+>> real nav.follow/nav.reachable AI, and the transparency fixes (the HUD <<
+>> panel below uses both #RRGGBBAA alpha AND the opacity: property).<<
+>> =========================================================================== <<
+
+#overrideOPLim {
+    ramAllocated: g2
+    useCPU: true
+	useGPU: true
+    useARam: true
+}
+
+int HP = 100
+int Kills = 0
+int Ammo = 5
+int EnemyCount = 5
+float angle = 0
+float speed = 2.4
+string Status = "5 hunters are coming..."
+
+int playerX = 0
+int playerY = 0
+
+string LightMapTex = ""
+
+int frameCount = 0
+int fps = 0
+
+string SpawnMusic = ""
+
+float volumeTest = .3
+
+
+*.main {
+    menu.dynamic
+
+	holder (opacity: 0.62, size: 640x103) {
+        background: #0d1117cc
+        text "HP: {HP}" { color: #6cf09a, font: H }
+        text "Kills: {Kills} / {EnemyCount}" { color: #ffed3c }
+        text "{Status}" { color: #ff8a8aaa }
+		text "X:{playerX} Z:{playerY}" { color: #94ff37, font: H } 
+	 	text "Current Ammo: {Ammo}" { color: #45ff12 }
+		text "FPS: {fps}" {color: #ff907b, center: right}
+    }
+
+
+    raycast {
+        ambient: 0.09
+        light { x: 180, y: 220, color: #ffaa55, radius: 7, intensity: 1.3, shadowCaster: true }
+        light { x: 900, y: 620, color: #5ab0ff, radius: 6, intensity: 1.0, shadowCaster: true }
+		light { x: 624, y: 203, color: #b6ffe3, radius: 6, intensity: 1.0, shadowCaster: true }
+		light { x: 400, y: 481, color: #a4ff8f, radius: 6, intensity: 1.0, shadowCaster: true }
+		light { x: 175, y: 902, color: #ff464a, radius: 6, intensity: 1.0, shadowCaster: true }
+		light { x: 578, y: 874, color: #ffd16c, radius: 6, intensity: 0.2, shadowCaster: true }
+
+		>> Wall Materials<<
+        material "1" { color: #2f3a46, image: "Materials/ancient_fortress_wall_smooth.png" }
+
+		>>Floor Materials<<
+		material "g" { type: floor, image: "Materials/aged_pine_floor.png"}
+		
+		>>Roof Materials<<
+		material "r" { type: roof,  image: "Materials/dirty_interlocking_concrete_pavers_bright.png"}
+		material "t" { type: roof,  image: "Materials/dirty_interlocking_concrete_pavers_smooth.png"}
+		
+        map: [
+        "11111111111111111111111111",
+        "11111111111111111111111111",
+        "1111111111111......1111111",
+        "11....1111111......1111111",
+        "11....1111111......1111111",
+        "11....................1111",
+        "11....1111111......11.1111",
+        "11....11111111.11111....11",
+        "1111.11111.......111....11",
+        "1111.11111..............11",
+        "11.......1.......111....11",
+        "11...............1111..111",
+        "11.....................111",
+        "11.......1.......111....11",
+        "1111..11111111.11111....11",
+        "1111..11111111.11111....11",
+        "1111..11111111.11111....11",
+        "1111..11111111.11111....11",
+        "1111..11111111.111111..111",
+        "111.....1111....111.....11",
+        "111.....1111....111.....11",
+        "111.............111.....11",
+        "111.....1111....111.....11",
+        "111.....111111111111111111",
+        "11111111111111111111111111",
+        "11111111111111111111111111"
+        ]
+		
+		floorMap: [
+        "..........................",
+        "..........................",
+        ".............gggggg.......",
+        "..gggg.......gggggg.......",
+        "..gggg.......gggggg.......",
+        "..gggggggggggggggggggg....",
+        "..gggg.......gggggg..g....",
+        "..gggg........g.....gggg..",
+        "....g.....ggggggg...gggg..",
+        "....g.....gggggggggggggg..",
+        "..ggggggg.ggggggg...gggg..",
+        "..ggggggggggggggg....gg...",
+        "..ggggggggggggggggggggg...",
+        "..ggggggg.ggggggg...gggg..",
+        "....gg........g.....gggg..",
+        "....gg........g.....gggg..",
+        "....gg........g.....gggg..",
+        "....gg........g.....gggg..",
+        "....gg........g......gg...",
+        "...ggggg....gggg...ggggg..",
+        "...ggggg....gggg...ggggg..",
+        "...ggggggggggggg...ggggg..",
+        "...ggggg....gggg...ggggg..",
+        "...ggggg..................",
+        "..........................",
+        ".........................."
+		]
+
+		roofMap: [
+        "..........................",
+        "..........................",
+        ".............trtrrt.......",
+        "..rtrt.......rrrttr.......",
+        "..rtrr.......trtrrt.......",
+        "..rtttrrrttrtrrrtttrrr....",
+        "..rrrr.......rrrrrr..t....",
+        "..trrt........r.....trrr..",
+        "....t.....rtrrtrt...rrtr..",
+        "....r.....rtrtrrrtrrtrrr..",
+        "..trrrrtr.rrrrtr...rtrtr..",
+        "..rrtrtrrrttrtrrr....rr...",
+        "..rtrrttrrrtrrrtrrtrrtr...",
+        "..rtrtrrr.rrtrtrr...rrrr..",
+        "....tr........r.....rrrr..",
+        "....rr........r.....rrrr..",
+        "....tt........t.....rrrr..",
+        "....tr........t.....rrrr..",
+        "....rr........r......rr...",
+        "...rttrr....rrrt...rrrrr..",
+        "...rtrrr....rtrr...rrrrr..",
+        "...rrrtrrrtrrttr...rrrrr..",
+        "...rtrtr....rrrr...rrrrr..",
+        "...rrrrr..................",
+        "..........................",
+        ".........................."
+		]
+		
+        fov: 74
+        columns: 275
+        fogColor: #000000
+        fogRange: 11
+        parent: player
+        collide: true
+        mazeID: 1
+        cellSize: 40
+		size: 640x480
+    }
+
+    vcr.colide "player" { size: 8, color: #00000000, x: 180, y: 220, svc: 101 }
+
+    >>vcr.raycastObject "hunter1" { color: #ff3b3b, size: 1.0, x: 660, y: 180, svc: 10, tag: enemy }
+    >>vcr.raycastObject "hunter2" { color: #ff3b3b, size: 1.0, x: 860, y: 860, svc: 11, tag: enemy }
+    >>vcr.raycastObject "hunter3" { color: #ff8a3b, size: 1.0, x: 900, y: 380, svc: 12, tag: enemy }
+    >>vcr.raycastObject "hunter4" { color: #ff8a3b, size: 1.0, x: 220, y: 860, svc: 13, tag: enemy }
+    >>vcr.raycastObject "hunter5" { color: #ffcb3b, size: 0.9, x: 900, y: 620, svc: 14, tag: enemy }<<
+
+    >>text "WASD move, mouse look, SPACE to shoot" { center: bottomcenter, color: #ffffffaa }<<
+
+	vcr.raycastObject "speaker1" { image: "speaker_2.png", size: 1, x: 711, y: 117, svc: 9023, tag: speaker }
+	vcr.raycastObject "speaker2" { image: "speaker_2.png", size: 1, x: 98, y: 144, svc: 9024, tag: speaker }
+	vcr.raycastObject "speaker3" { image: "speaker_2.png", size: 1, x: 175, y: 902, svc: 9025, tag: speaker }
+    setup {
+		loadPost(test)
+		
+		>>audio.playSound "Audio/MessageFrom.mp3" { volume: .5, is3D: true, realtimeRef: false, radius: 22, x: 711, y: 117  }<<
+		audio.playSound "Audio/MessageFrom.mp3" { volume: .7, is3D: true, realtimeRef: false, radius: 22, loop: true, parent: speaker1  }
+		audio.playSound "Audio/protal.mp3" { volume: .2, is3D: true, realtimeRef: false, radius: 13, loop: true, x: 98, y: 144  }		
+		audio.playSound "Audio/ruler.mp3" { volume: .35, is3D: true, realtimeRef: false, radius: 33, loop: true, x: 175, y: 902  }		
+		 
+        cursor.lock
+        collide.createMesh(1)
+		>>lightmap.generate("1")<<
+        if (dUMR == 0) {
+            alert("Your PC may not meet this level's recommended 2GB RAM - five hunters pathfinding on a big map at once can get heavy!")
+        }
+
+		after 1s {
+			fps = frameCount
+			frameCount = 0
+			after 1s { 
+				fps = frameCount
+				frameCount = 0
+			}
+		}
+
+
+		>>LightMapTex = lightmap.grab("1")<<
+    }
+	
+    update {
+		frameCount = frameCount + 1
+
+		playerX = floor(properties.get(svc: 101, getProperty.position.x))
+		playerY = floor(properties.get(svc: 101, getProperty.position.y))
+
+        if (HP > 0) {
+            >> ---- look + move ---- <<
+            angle = angle + mouse.dx
+            adjvcr({0,0, mouse.dx}, {0,0,0}, {1,1,1}, 101)
+            >> ---- turn/move are scaled by (time.normal*60) so they cover ----
+            >>      the same real-world distance per second regardless of    ----
+            >>      frame rate (1.0 at exactly 60fps - unchanged from before ----
+            >>      at the speed this was originally tuned for). mouse.dx    ----
+            >>      above is left alone: it's how far the mouse physically   ----
+            >>      moved since last frame, already frame-rate independent  ---- <<
+            if (input.getHeld("a")) { angle = angle - 3*(time.normal*60)   adjvcr({0,0,-3*(time.normal*60)},{0,0,0},{1,1,1},101) }
+            if (input.getHeld("d")) { angle = angle + 3*(time.normal*60)   adjvcr({0,0, 3*(time.normal*60)},{0,0,0},{1,1,1},101) }
+            if (input.getHeld("w")) { adjvcr({0,0,0},{cos(angle*0.01745)*speed*(time.normal*60), sin(angle*0.01745)*speed*(time.normal*60), 0},{1,1,1},101) }
+            if (input.getHeld("s")) { adjvcr({0,0,0},{cos(angle*0.01745)*(speed*-1)*(time.normal*60), sin(angle*0.01745)*(speed*-1)*(time.normal*60), 0},{1,1,1},101) }
+
+            >> ---- every hunter paths around walls to reach you (the real ----
+            >>      nav.follow system - this is what useCPU's raised search  ----
+            >>      budget is for: 5 of these re-planning every frame on a   ----
+            >>      big map is exactly the case that used to hit the cap)    ---- <<
+            if (exists(10)) { if (nav.reachable(1, 10, 101)) { nav.follow(1, 10, 101, 1.1) } }
+            if (exists(11)) { if (nav.reachable(1, 11, 101)) { nav.follow(1, 11, 101, 1.1) } }
+            if (exists(12)) { if (nav.reachable(1, 12, 101)) { nav.follow(1, 12, 101, 1.3) } }
+            if (exists(13)) { if (nav.reachable(1, 13, 101)) { nav.follow(1, 13, 101, 1.3) } }
+            if (exists(14)) { if (nav.reachable(1, 14, 101)) { nav.follow(1, 14, 101, 1.6) } }
+
+            >> ---- contact damage (frame-rate independent, ~18 hp/sec) ----
+            >>      one loop over every 'enemy'-tagged object instead of a  ----
+            >>      hardcoded check per svc - add/remove hunters and this   ----
+            >>      needs no changes at all, and dead ones drop out on      ----
+            >>      their own (no exists() check needed either)             ---- <<
+            Enemies = properties.get.tags("enemy")
+            for i = 0 to Enemies.count - 1 {
+                s = Enemies.get(i)
+                if (getProperty.distance(properties.get(svc:s, getProperty.position), properties.get(svc:101, getProperty.position)) < 26) {
+                    HP = HP - 18 * time.normal
+                }
+            }
+            if (HP < 0) { HP = 0 }
+
+            >> ---- shoot ---- <<
+            if (input.getClick("space") && Ammo != 0) {
+                raycast.cast(1, 101)
+				Ammo = Ammo - 1
+                if (hitType == 1) {
+                    destroy(hitSvc)
+                    Kills = Kills + 1
+					
+                    burst(hitX, hitY, "#ffcb6b", 24, 160, true, true, 0.35, 1.0)
+					audio.playSound "Audio/death-splat.mp3" { volume: .2, is3D: true, realtimeRef: false, radius: 22, loop: false, x: hitX, y: hitY  }
+                }
+            }
+
+            if (Kills >= EnemyCount) { Status = "ALL FIVE DOWN - you win!" }
+        }
+        if (HP <= 0) {
+            Status = "YOU DIED - press Update to try again"
+        }
+    }
+}
+
+*.postEffect {
+	post.name = "test"
+	post.cache = true
+	post.quality = 55
+	
+	effect {
+		postEffects.vignette(intensity: .75, smoothness: 0.2)
+		postEffects.bloom(intensity: 1)
+		postEffects.colorGrading(saturation: 1, contranst: 5)
+		>>postEffects.autoExposure(speed: 1.5)<<
+		postEffects.tonemapping(strength: 1)
+	}
+}

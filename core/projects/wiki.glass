@@ -1,0 +1,1066 @@
+*.main {
+    menu.full
+    background: #0d1117
+    center { center }
+    title: Glass Wiki
+
+    textgroup { H, arial }
+    textgroup { T, timesnewroman }
+
+    holder ( scroll, size: 620x500, outline: true, outlineColor: #6cf09a, outlineThickness: 1 ) {
+        name: wikibody
+        background: #0d1117
+
+        text "THE GLASS LANGUAGE - COMPLETE BEGINNER GUIDE" { color: #6cf09a, font: H, center: middle, width: 380 }
+        separator
+        text "WELCOME TO GLASS" { color: #6cf09a, font: H }
+        text "Hi! Glass is a language you can use to make things on a screen: windows, menus, buttons, and even little 3D games like a maze shooter.
+
+You make things by TYPING WORDS in a file that ends in .glass . Glass reads your words and turns them into pictures. That's it! If you can write a list, you can write Glass.
+
+This wiki starts from the very beginning. Read it top to bottom the first time. Every idea builds on the one before it." { color: #c9d1d9 }
+        separator
+        text "HOW TO READ THE EXAMPLES" { color: #ffed3c, font: T }
+        text "When you see text in a box like this:
+
+    text \"Hello!\"
+
+...that is Glass code you can type. Lines that start with  >>  and end with  <<  are NOTES to you (Glass ignores them). For example:
+
+    >> this is just a note <<
+    text \"Hello!\"       >> shows the word Hello <<" { color: #c9d1d9 }
+        separator
+        text "YOUR FIRST GLASS" { color: #6cf09a, font: H }
+        text "Here is a whole tiny program. Type it in the editor and press Update:
+
+    *.menu {
+        title: My First Window
+        text \"Hello world!\"
+    }
+
+You just made a window with a title and one line of words. Let's learn what each piece means." { color: #c9d1d9 }
+        separator
+        text "WHAT THE PIECES MEAN" { color: #ffed3c, font: T }
+        text "    *.menu {
+        ...stuff...
+    }
+
+- The  *  means 'show this on every website.'
+- The  menu  means 'make a little draggable window.'
+- The  {  and  }  are like a box. Everything for the window goes BETWEEN them.
+- title:  sets the window's heading.
+- text \"...\"  puts words inside the window.
+
+Curly braces { } always come in pairs, like two hands holding something. Every { needs a matching }." { color: #c9d1d9 }
+        separator
+        text "THE SHAPE OF EVERY RULE" { color: #6cf09a, font: H }
+        text "Almost everything in Glass looks like this:
+
+    where.what ( traits ) {
+        property: value
+        element \"label\" { ...more... }
+    }
+
+- where  = which website. Use  *  for 'all sites', or a name like example.com .
+- what   = the kind of container: menu, holder, panel, bar, or main.
+- traits = optional words in ( ) that change how it behaves (like moveable).
+- property: value = settings, one per line (like  color: #ff0000 ).
+- element = things inside, like text or button." { color: #c9d1d9 }
+        separator
+        text "CONTAINERS (the 5 kinds of 'what')" { color: #ffed3c, font: T }
+        text "- menu    : a floating window you can drag around. The most common one.
+- holder  : a box that holds things; can pop open and closed.
+- panel   : a plain box glued in place.
+- bar     : a thin strip, good for toolbars.
+- main    : a WHOLE PAGE. Use  menu.full  for a full screen, or  menu.dynamic for a full screen GAME that updates every frame." { color: #c9d1d9 }
+        separator
+        text "TRAITS (words in the parentheses)" { color: #ffed3c, font: T }
+        text "Traits are optional powers you give a container:
+
+    *.menu ( moveable, resizable ) { ... }
+
+- moveable  : you can drag it.
+- resizable : you can change its size.
+- scroll    : if it's too full, you get a scrollbar.
+
+You can also write them with a dot, like  menu.moveable , but the ( ) form lets you list several at once." { color: #c9d1d9 }
+        separator
+        text "THINGS YOU CAN PUT INSIDE (ELEMENTS)" { color: #6cf09a, font: H }
+        text "Inside a container's { } you add elements. Here are the common ones:
+
+- text \"words\"        : shows words.
+- button \"Click\" { action: ... } : a button that DOES something.
+- input { }            : a box people can type in.
+- link \"Google\" { url: https://google.com } : opens a website.
+- image { src: cat.png } : shows a picture.
+- separator            : a thin line to split sections.
+- holder { }           : a box inside a box." { color: #c9d1d9 }
+        separator
+        text "A BUTTON THAT DOES SOMETHING" { color: #ffed3c, font: T }
+        text "    button \"Say Hi\" { action: alert, message: \"Hi!\" }
+
+When clicked, it runs an action. Some actions: alert, close, wiki, loadglass, reload, zoomin, zoomout." { color: #c9d1d9 }
+        separator
+        text "READING WHAT SOMEONE TYPES" { color: #ffed3c, font: T }
+        text "Give a variable name to an input and it fills itself in as you type - put the variable's name BEFORE the equals sign:
+
+    string name = \"\"
+    NameBox = input \"Type your name\" { }
+    text \"Hello, {NameBox}!\"
+
+Whatever's typed into that box is now sitting in the  NameBox  variable, live, every keystroke - use it in text, if checks, anywhere.
+
+webInput is a different, more specific box: type something and press Enter, and it navigates there (or searches for it) like a real address bar - it does NOT fill in a variable, it's built for one job:
+
+    webInput" { color: #c9d1d9 }
+        separator
+        text "PROPERTIES (SETTINGS)" { color: #6cf09a, font: H }
+        text "Properties change how something looks or sits. A few you'll use a lot:
+
+- color: #ff0000        : the color (red here).
+- size: 300x200         : width x height.
+- outline: true         : draw a border.
+- outlineColor: #6cf09a : border color.
+- center: middle        : center the item.
+- font: H               : use a named font group.
+
+One per line, OR separated by commas inside ( ) or { }." { color: #c9d1d9 }
+        separator
+        text "COLORS (and see-through colors!)" { color: #ffed3c, font: T }
+        text "Colors are written with a # and 6 letters/numbers (hex):
+
+    #ff0000  = red      #00ff00 = green     #0000ff = blue
+    #ffffff  = white    #000000 = black
+
+You can add 2 MORE characters to make it see-through (transparency). This is called RRGGBBAA - the last 2 are the 'alpha' (how solid):
+
+    #ff000080  = half see-through red
+    #ff0000ff  = fully solid red
+    #ff000000  = fully invisible" { color: #c9d1d9 }
+        separator
+        text "VARIABLES (REMEMBERING THINGS)" { color: #6cf09a, font: H }
+        text "A variable is a NAME that holds a value, so you can remember and change it. You make one by saying its TYPE, its name, and its first value:
+
+    int   score = 0          >> a whole number <<
+    float speed = 1.5        >> a number with a dot <<
+    string name = \"Sam\"      >> words <<
+    bool  alive = true       >> true or false <<
+    double big = 3.14159     >> a big decimal number <<
+
+Put these at the TOP of the file, before your rules." { color: #c9d1d9 }
+        separator
+        text "SHOWING A VARIABLE IN TEXT" { color: #ffed3c, font: T }
+        text "Put the variable's name in curly braces inside text:
+
+    int score = 5
+    text \"Your score is {score}\"     >> shows: Your score is 5 <<
+
+When score changes, the text changes too." { color: #c9d1d9 }
+        separator
+        text "CHANGING A VARIABLE" { color: #ffed3c, font: T }
+        text "Inside a script (we'll learn scripts soon) you can change it:
+
+    score = score + 1        >> add one <<
+    score = score * 2        >> double it <<
+    name  = \"Alex\"           >> put new words in <<" { color: #c9d1d9 }
+        separator
+        text "REMEMBERING THINGS BETWEEN VISITS" { color: #ffed3c, font: T }
+        text "A normal variable forgets everything when the page closes. pref.save keeps a value on THIS computer even after Glass shuts down and reopens - perfect for a high score or a settings toggle:
+
+    pref.save(\"highscore\", score)     >> saves score under the name \"highscore\" <<
+    best = pref.load(\"highscore\")     >> best is 0 if nothing was ever saved <<
+
+A good pattern: load a saved value into a variable in setup, and save it again whenever it changes:
+
+    int highscore = 0
+    setup { highscore = pref.load(\"highscore\") }
+    update {
+        if (score > highscore) {
+            highscore = score
+            pref.save(\"highscore\", highscore)
+        }
+    }" { color: #c9d1d9 }
+        separator
+        text "LISTS (A ROW OF THINGS)" { color: #6cf09a, font: H }
+        text "A list holds MANY values in a row, like a shopping list. Make one with the type  list :
+
+    list scores = []              >> an empty list <<
+    list names  = [\"ann\", \"bob\"]  >> a list with 2 names <<
+
+Lists are perfect for keeping track of lots of things - like every bullet flying, or every enemy alive." { color: #c9d1d9 }
+        separator
+        text "WHAT YOU CAN DO WITH A LIST" { color: #ffed3c, font: T }
+        text "    scores.add(10)        >> put 10 at the end <<
+    scores.get(0)         >> the FIRST one (counting starts at 0!) <<
+    scores.set(0, 99)     >> change the first one to 99 <<
+    scores.count          >> how many are in the list <<
+    scores.remove(10)     >> take out the value 10 <<
+    scores.removeAt(0)    >> take out the first one <<
+    scores.contains(10)   >> 1 if 10 is in the list, else 0 <<
+    scores.indexOf(10)    >> where 10 is (or -1 if missing) <<
+    scores.clear()        >> empty the whole list <<
+
+IMPORTANT: lists count from 0. The first item is get(0), the second is get(1)." { color: #c9d1d9 }
+        separator
+        text "GOING THROUGH A WHOLE LIST" { color: #ffed3c, font: T }
+        text "Use a loop with the list's count:
+
+    list nums = [4, 8, 15]
+    int total = 0
+    for i = 0 to nums.count - 1 {
+        total = total + nums.get(i)
+    }
+    >> total is now 27 <<" { color: #c9d1d9 }
+        separator
+        text "MAKING THINGS HAPPEN (SCRIPTS)" { color: #6cf09a, font: H }
+        text "So far our pages just sit there. To make them DO things every moment, we use two special blocks inside a  menu.dynamic  page:
+
+    setup {
+        >> runs ONCE at the start <<
+    }
+    update {
+        >> runs EVERY FRAME, over and over, very fast <<
+    }
+
+setup is for getting ready. update is the heartbeat of a game." { color: #c9d1d9 }
+        separator
+        text "IF (MAKING DECISIONS)" { color: #ffed3c, font: T }
+        text "if checks something. If it's true, it runs the code in its { }:
+
+    if (score > 10) {
+        text \"You win!\"
+    }
+
+Comparisons you can use:
+    ==  the same        !=  not the same
+    >   bigger          <   smaller
+    >=  bigger or equal  <=  smaller or equal
+
+Join checks with  &&  (and) or  ||  (or):
+    if (hp > 0 && score > 100) { ... }" { color: #c9d1d9 }
+        separator
+        text "FOR (DOING SOMETHING MANY TIMES)" { color: #ffed3c, font: T }
+        text "A for loop repeats. This counts from 1 to 5:
+
+    for i = 1 to 5 {
+        >> i is 1, then 2, then 3, 4, 5 <<
+    }
+
+The name  i  holds the current number each time around. Great for checking a row of enemies (svc 10 to 14):
+
+    for i = 10 to 14 { ... }" { color: #c9d1d9 }
+        separator
+        text "TIMERS (WAIT, THEN DO SOMETHING)" { color: #6cf09a, font: H }
+        text "Sometimes you don't want something to happen RIGHT NOW - you want it to happen LATER, or over and over on a schedule. Two words handle that:
+
+    after 2s {
+        text \"Two seconds passed!\"
+    }
+
+    repeat 5 {
+        score = score + 1        >> runs 5 times right away, back to back <<
+    }
+
+after waits, then runs its { } ONCE. repeat runs its { } a set number of times immediately (it's not spread over time - use it for 'do this N times', not 'do this every N seconds'). Both can hold any code you'd put in setup or update, including if and other timers." { color: #c9d1d9 }
+        separator
+        text "KEYBOARD AND MOUSE" { color: #6cf09a, font: H }
+        text "Inside update, ask what the player is doing:
+
+    input.getHeld(\"w\")     >> 1 while the W key is held down <<
+    input.getClick(\"space\") >> 1 only on the frame it's pressed <<
+    mouse.dx               >> how far the mouse moved sideways this frame <<
+    mouse.down             >> 1 if a mouse button is down <<
+
+Example - move when W is held:
+
+    if (input.getHeld(\"w\")) { score = score + 1 }" { color: #c9d1d9 }
+        separator
+        text "MATH HELPERS" { color: #6cf09a, font: H }
+        text "Glass gives you handy math tools:
+
+    sqrt(x)        square root
+    abs(x)         make positive
+    floor(x)       round DOWN to a whole number
+    round(x)       round to nearest whole number
+    min(a, b)      the smaller one
+    max(a, b)      the bigger one
+    clamp(x, lo, hi) keep x between lo and hi
+    random(a, b)   a random number between a and b
+    sin(x)  cos(x) angle math (x in degrees)" { color: #c9d1d9 }
+        separator
+        text "THE SCREEN'S SIZE" { color: #ffed3c, font: T }
+        text "screen.width and screen.height are always the CURRENT size of the window, in pixels - handy for centering things or making a game fit any screen:
+
+    size: screen.width/2          >> half the window's width <<
+    x = screen.width - 40         >> 40 pixels from the right edge <<
+
+They also work as normal numbers inside scripts:
+
+    if (mouse.x > screen.width / 2) { text \"You're on the right side!\" }
+
+They update automatically if the window is resized - no need to re-check anything." { color: #c9d1d9 }
+        separator
+        text "LERP - SMOOTH BLENDING" { color: #ffed3c, font: T }
+        text "lerp(a, b, t) gives you a value PART WAY between a and b. t goes from 0 to 1:
+
+    lerp(0, 100, 0)    is 0     (all the way at a)
+    lerp(0, 100, 0.5)  is 50    (halfway)
+    lerp(0, 100, 1)    is 100   (all the way at b)
+
+A famous trick: ease something toward a target a little each frame -
+
+    hp = lerp(hp, 100, 0.1)   >> hp glides smoothly up to 100 <<
+
+lerp also works on vectors (see Vectors below):
+    pos = lerp({0,0,0}, {10,0,0}, 0.5)   >> {5,0,0} <<" { color: #c9d1d9 }
+        separator
+        text "LERPANGLE and SLERP - SMOOTH TURNING" { color: #ffed3c, font: T }
+        text "lerpAngle(a, b, t) blends between two ANGLES the short way around the circle (so 350 to 10 goes through 0, not the long way):
+
+    angle = lerpAngle(angle, target, 0.2)   >> turn smoothly toward target <<
+
+slerp(a, b, t) blends between two DIRECTION vectors by spinning smoothly:
+
+    dir = slerp({1,0,0}, {0,1,0}, 0.5)   >> a direction 45 degrees between them <<" { color: #c9d1d9 }
+        separator
+        text "MAKE YOUR OWN FUNCTIONS" { color: #6cf09a, font: H }
+        text "You've been using built-in functions like lerp and clamp. Now you can make your OWN! A function is a little machine: you give it some numbers (called parameters), it does work, and it hands back an answer with return.
+
+    function double(n) {
+        return n * 2
+    }
+
+Now anywhere in your scripts you can use it:
+
+    x = double(21)      >> x is 42 <<
+    y = double(5) + 1   >> y is 11 <<
+
+You just made a brand-new word for the language!" { color: #c9d1d9 }
+        separator
+        text "THE SHAPE OF A FUNCTION" { color: #ffed3c, font: T }
+        text "    function name(param1, param2) {
+        >> do some work <<
+        return answer
+    }
+
+- function : the magic word that starts it (you can also write func or snip - all the same).
+- name : what you'll call it later.
+- (param1, param2) : the values it takes in. You can have none, one, or many.
+- return : hands an answer back. Whatever you return is what the function becomes when you use it." { color: #c9d1d9 }
+        separator
+        text "FUNCTIONS CAN USE ANYTHING" { color: #ffed3c, font: T }
+        text "Inside a function you can use if, for, math, other functions - everything!
+
+    function damage(base, armor) {
+        return max(1, base - armor)     >> never less than 1 <<
+    }
+
+    function healTo100(hp, amt) {
+        v = hp + amt
+        return min(100, v)              >> never above 100 <<
+    }
+
+    >> functions can even call YOUR other functions <<
+    function doubleDamage(base, armor) {
+        return double(damage(base, armor))
+    }" { color: #c9d1d9 }
+        separator
+        text "TYPES ARE OPTIONAL" { color: #ffed3c, font: T }
+        text "You can add a type in front of a parameter if you want Glass to tidy the value for you (int makes it a whole number, string makes it words):
+
+    function greet(string who) {
+        return \"hi \" + who      >> greet(\"Sam\") gives  hi Sam <<
+    }
+
+But you don't have to - function add(a, b) { return a + b } works just fine. Functions are the best way to keep your game tidy: write a tricky bit ONCE, give it a name, and reuse it everywhere." { color: #c9d1d9 }
+        separator
+        text "VECTORS (X, Y, Z TOGETHER)" { color: #6cf09a, font: H }
+        text "A vector is 3 numbers in curly braces: {x, y, z}. It can mean a position, a direction, or a size. You'll see them in movement and math:
+
+    {10, 0, 0}    >> 10 to the right <<
+    {0, 5, 0}     >> 5 down <<
+
+You can ask an object where it is (more on objects soon):
+
+    properties.get(svc: 5, getProperty.position)     >> the {x,y,z} of object 5 <<
+    properties.get(svc: 5, getProperty.position.x)   >> just its x <<
+
+And the distance between two things:
+
+    getProperty.distance( posA, posB )
+
+That's not the only thing you can ask an object for either - scale, rotation, velocity, size, friction, isTrigger, kind, and tag all work the same way (properties.get(svc: N, getProperty.whatever)). See the cheat sheet near the end for the full list." { color: #c9d1d9 }
+        separator
+        text "MOVING OBJECTS (VCR)" { color: #6cf09a, font: H }
+        text "A 'vcr' is a moving object with an id number called an  svc . You make one inside a dynamic page:
+
+    vcr.image \"hero\" { sprite: hero.png, x: 100, y: 100, svc: 1 }
+
+- svc  is its ID, so scripts can find it.
+- x, y is where it starts.
+
+To move or turn it, use  adjvcr :
+
+    adjvcr( {0,0, 5}, {2, 0, 0}, {1,1,1}, 1 )
+
+The four parts are:
+  1) turn amount {0,0, degrees}
+  2) move amount {dx, dy, 0}
+  3) scale {1,1,1} (leave as 1s to keep size)
+  4) which svc to change" { color: #c9d1d9 }
+        separator
+        text "OTHER MEDIA: GIFS AND VIDEO" { color: #ffed3c, font: T }
+        text "vcr.image isn't the only kind of vcr - there's an animated version and a real video player too, same idea, same svc:
+
+    vcr.gif \"party\" { size: 64, svc: 2 }
+    vcr.video \"clip.mp4\" { size: 320x180, volume: 0.8, svc: 3 }
+
+vcr.gif just plays and loops on its own. vcr.video adds  volume  (0 to 1) and  speed  (also shifts the pitch, like a tape) - handy for cutscenes or background loops." { color: #c9d1d9 }
+        separator
+        text "THE 3D WORLD: RAYCASTER" { color: #6cf09a, font: H }
+        text "Glass can draw a first-person 3D maze (like old-school Doom) using a  raycast block. You draw the map with letters, and each letter is a wall type:
+
+    raycast {
+        material \"1\" { color: #6cf09a }
+        map: [
+            \"11111\",
+            \"1...1\",
+            \"1...1\",
+            \"11111\"
+        ]
+        fov: 72
+        columns: 130
+    }
+
+- Each \"1\" is a wall; each \".\" is empty floor you can walk on.
+- material \"1\" says what the \"1\" walls look like.
+- fov is how wide you see; columns is the detail (higher = sharper, slower)." { color: #c9d1d9 }
+        separator
+        text "WALL MATERIALS: COLOR OR PICTURE" { color: #ffed3c, font: T }
+        text "A material can be a flat color OR a picture (texture):
+
+    material \"1\" { color: #884422 }                >> brown wall <<
+    material \"2\" { image: \"brick.png\", tiling: true } >> brick picture <<
+
+For a picture, the file (brick.png) must sit in the SAME folder as your .glass file." { color: #c9d1d9 }
+        separator
+        text "FLOORS AND CEILINGS" { color: #ffed3c, font: T }
+        text "Give floors and ceilings their own letter-maps. Mark a material with a  type of floor or roof, then add a floorMap / roofMap the same shape as map:
+
+    material \"g\" { type: floor, color: #2f6b2f }
+    material \"s\" { type: floor, image: \"stone.png\" }
+    material \"k\" { type: roof,  color: #101826 }
+
+    floorMap: [ \"ggsgg\", \"gsssg\", \"ggsgg\" ]
+    roofMap:  [ \"kkkkk\", \"kkkkk\", \"kkkkk\" ]
+
+Every letter can be a different color or picture. Mix and match!" { color: #c9d1d9 }
+        separator
+        text "FOG, CAMERA, AND WALKING" { color: #ffed3c, font: T }
+        text "Extra raycast settings:
+
+    fov: 72            how wide you see
+    cellSize: 40       how big each map square is in world units
+    ceiling: #0a0f18   flat ceiling color (if no roofMap)
+    floor: #10161f     flat floor color (if no floorMap)
+    fogColor: #05070b  far-away haze color
+    fogRange: 11       how far you can see before fog
+    parent: player     follow this object's position + facing (the camera)
+    collide: true      stop the camera at walls
+    mazeID: 1          an id so collision + shooting know this maze" { color: #c9d1d9 }
+        separator
+        text "BAKED LIGHTING" { color: #6cf09a, font: H }
+        text "Drop lights into a raycast level and Glass BAKES them - it works out the light and shadow on every cell ONCE, so it costs nothing while you play. Add a light child and set an ambient (the base darkness):
+
+    raycast {
+        ambient: 0.3
+        light { x: 200, y: 160, color: #ff9a3c, radius: 5, intensity: 1.4, shadowCaster: true }
+        ...
+    }
+
+- x, y      : where the light sits (world pixels, like an object).
+- radius    : how far it reaches, in cells.
+- intensity : how bright (1 = normal, higher = brighter).
+- color     : the glow color.
+- shadowCaster : true = walls block it (real shadows), false = it shines through walls (soft fill light).
+
+With no lights, a level stays full-bright, so old maps look the same." { color: #c9d1d9 }
+        separator
+        text "FIXED: WALLS NOW ACTUALLY BLOCK LIGHT FROM OTHER WALLS" { color: #ff8a8a, font: T }
+        text "Found via a real exported lightmap_<mazeID>.png that looked wrong (light visibly reaching wall regions it shouldn't) and confirmed against real level data before fixing, not just from reading the code: wall CELLS themselves used to skip the occlusion test entirely and always light up at full, unoccluded strength - so a wall could glow as if a nearer wall between it and the light wasn't there. Floor cells were never affected (a controlled test comparing occluded vs clear floor cells at matched distance showed the shadow was always genuinely working there: ~22 brightness occluded vs ~111 clear).
+
+Fixed: wall cells now get tested too, against their CELL CENTER rather than their exact pixel position - every pixel inside one wall cell still gets the identical result (so wall faces stay smooth, no per-pixel spikes - the whole reason the original skip existed), but a nearer wall now correctly shadows a farther one. Memoized per (light, cell) rather than re-running the DDA for every pixel sharing a cell, since a cell can be 1000+ pixels at full bake resolution - measured directly on a real 26x26, 6-light level: 3.5s naive vs 2.4s memoized vs 1.5s as the theoretical floor with shadows off entirely. If your existing lightmap_<mazeID>.png files look different after upgrading, that's this fix - re-bake to update them." { color: #c9d1d9 }
+        separator
+        text "MATERIALS TINT THE LIGHT NEAR THEM" { color: #ffed3c, font: T }
+        text "A light picks up a hint of whatever wall material is actually near it - a red wall genuinely tints nearby light red, a blue one tints it blue. Not real bounce ray-tracing (that's a different order of expensive - a single direct-lighting bake already takes over a second, and real multi-bounce GI needs every surface gathering light from every other one), but a cheap, real approximation: for each light, the average color of nearby wall materials gets blended a little into that light's own color before the main bake runs. One quick pass per LIGHT, not per pixel, so it costs almost nothing - measured directly: under half a millisecond total, out of a bake that takes over a second.
+
+This happens automatically, nothing to write - place materials with actual color/texture near your lights and the bake picks it up. Changing a material's color re-bakes correctly too, even if the map layout itself didn't change." { color: #c9d1d9 }
+        separator
+        text "THE BAKING TAB (LIGHTING + AUDIO)" { color: #ffed3c, font: T }
+        text "Click  Baking...  in the toolbar to open the Baking tab - lighting and audio-reverb acoustics live together there, since both are things Glass pre-computes once so they cost nothing during play. For lighting:
+
+- Pick a QUALITY: Draft, Low, Medium, High, Ultra, Extreme (higher = smoother light and sharper shadows, but slower to bake).
+- Turn the master Shadows switch on or off.
+- Pick a SHADOW RESOLUTION: 512, 1024, 2K, or 4K. Shadows are RAYCASTED for every pixel, so their edges are pixel-perfect (not chunky squares). Higher resolution = sharper edges but a slower bake - 4K is for final bakes.
+- Press  Bake lightmaps  to save each lit maze to an image file named lightmap_<mazeID>.png.
+
+The same tab also has  Bake audio acoustics  for 3D sound's room-echo estimate - see SOUND below.
+
+Because every maze has its own mazeID, ONE .glass file can hold several mazes, each with its own baked lighting." { color: #c9d1d9 }
+        separator
+        text "LIGHTMAPS IN SCRIPT" { color: #ffed3c, font: T }
+        text "You can also bake and fetch lightmaps from code:
+
+    lightmap.generate(\"1\")   >> bake maze 1 now, returns the image path <<
+    tex = lightmap.grab(\"1\") >> get maze 1's lightmap image (bakes if needed) <<
+
+grab hands back the saved lightmap picture so you can apply it to a texture. generate forces a fresh bake at the current quality." { color: #c9d1d9 }
+        separator
+        text "BILLBOARDS (MONSTERS AND ITEMS)" { color: #6cf09a, font: H }
+        text "A  raycastObject  is a flat picture or colored blob that always faces you - perfect for enemies, coins, and pickups in the 3D world:
+
+    vcr.raycastObject \"coin\" { color: #ffd23c, size: 0.35, x: 200, y: 80, svc: 30 }
+    vcr.raycastObject \"imp\"  { sprite: imp.png, size: 1.2, x: 300, y: 60, svc: 10 }
+
+- size  makes it bigger or smaller (1 = a full square tall, 0.35 = tiny coin).
+- opacity: 0.4  makes it see-through (a ghost!). Colors can also use #RRGGBBAA.
+- collide: true  makes it block movement." { color: #c9d1d9 }
+        separator
+        text "PLAYER MOVEMENT (THE CLASSIC PATTERN)" { color: #6cf09a, font: H }
+        text "Make an invisible 'player' object, point the camera at it with parent, and move it with keys. Keep a  float angle  for the way you face:
+
+    float angle = 0
+    float speed = 1.6
+
+    update {
+        >> mouse look <<
+        angle = angle + mouse.dx * 0.15
+        adjvcr({0,0, mouse.dx * 0.15},{0,0,0},{1,1,1},101)
+        >> turn with A / D <<
+        if (input.getHeld(\"a\")) { angle = angle - 2   adjvcr({0,0,-2},{0,0,0},{1,1,1},101) }
+        if (input.getHeld(\"d\")) { angle = angle + 2   adjvcr({0,0, 2},{0,0,0},{1,1,1},101) }
+        >> walk with W / S (0.01745 turns degrees into radians) <<
+        if (input.getHeld(\"w\")) { adjvcr({0,0,0},{cos(angle*0.01745)*speed, sin(angle*0.01745)*speed, 0},{1,1,1},101) }
+        if (input.getHeld(\"s\")) { adjvcr({0,0,0},{cos(angle*0.01745)*(speed*-1), sin(angle*0.01745)*(speed*-1), 0},{1,1,1},101) }
+    }
+
+Put  cursor.lock  in setup so the mouse stays captured for looking." { color: #c9d1d9 }
+        separator
+        text "COLLISION (WALLS THAT STOP YOU)" { color: #6cf09a, font: H }
+        text "In setup, turn the maze's walls into a solid 'mesh' once:
+
+    setup {
+        collide.createMesh(1)      >> 1 is the mazeID <<
+    }
+
+With  collide: true  and  parent: player  on the raycast, the player now stops at walls automatically. You can also test any object:
+
+    collide.detect(svc, 1)   >> 1 if that object is inside a wall <<" { color: #c9d1d9 }
+        separator
+        text "SHOOTING (RAY QUESTIONS)" { color: #6cf09a, font: H }
+        text "raycast.cast shoots an invisible ray and tells you the FIRST thing it hits. Use it for guns, but also for 'can this enemy see me?' and sensors:
+
+    hit = raycast.cast(1, 101)   >> maze 1, from object 101, facing its way <<
+
+After casting, these are filled in for you:
+
+    hitType   1 = hit an object, 2 = hit a wall, 0 = nothing
+    hitSvc    the object it hit
+    hitDist   how far away
+    hitX, hitY  the exact spot
+
+So a simple gun is:
+
+    if (input.getClick(\"space\")) {
+        raycast.cast(1, 101)
+        if (hitType == 1) { destroy(hitSvc) }
+    }" { color: #c9d1d9 }
+        separator
+        text "MAKING AND REMOVING THINGS" { color: #6cf09a, font: H }
+        text "At any time you can create or delete objects:
+
+    spawnObject(\"#66ddff\", x, y)     >> a colored billboard; returns its svc <<
+    spawnObject(\"imp.png\", x, y, false, 1.2, 1.0)  >> look, x, y, collide, size, opacity <<
+    clone(10, x, y)                 >> copy object 10 to a new spot <<
+    create(\"box.png\", x, y, 32, 32) >> a flat 2D sprite <<
+    destroy(5)                      >> remove object 5 <<
+    exists(5)                       >> 1 if object 5 is still around <<
+
+clone is like a rubber stamp: place one 'template' enemy, then clone it into a whole army." { color: #c9d1d9 }
+        separator
+        text "TAGS: FINDING OBJECTS WITHOUT HARDCODING SVCs" { color: #ffed3c, font: T }
+        text "Once you have more than a couple of enemies, checking each one by its exact svc number gets long fast - five enemies means five near-identical if/exists blocks. Give them a shared tag instead, and ask for the whole group:
+
+    vcr.raycastObject \"e1\" { color: #ff3b3b, x: 200, y: 80, svc: 10, tag: enemy }
+    vcr.raycastObject \"e2\" { color: #ff3b3b, x: 400, y: 80, svc: 11, tag: enemy }
+    vcr.raycastObject \"e3\" { color: #ff3b3b, x: 600, y: 80, svc: 12, tag: enemy }
+
+    update {
+        Enemies = properties.get.tags(\"enemy\")     >> a real list of svcs <<
+        for i = 0 to Enemies.count - 1 {
+            s = Enemies.get(i)
+            >> do something with enemy s <<
+        }
+    }
+
+properties.get.tags(\"name\") returns every object with that tag as a normal list - .count, .get(i), everything you already know from Lists above. It only ever contains objects that are CURRENTLY alive: once you destroy() one, it silently drops out of the next call - no more exists() checks needed either. Want just one match instead of the whole group? properties.get.tag(\"name\") returns a single svc (or \"\" if none)." { color: #c9d1d9 }
+        separator
+        text "PHYSICS (BULLETS THAT FLY)" { color: #6cf09a, font: H }
+        text "physics.push gives an object a VELOCITY so it moves on its own each frame and stops when it hits a wall - perfect for bullets and thrown things:
+
+    b = spawnObject(\"#ffee66\", px, py, false, 0.3)
+    physics.push(b, { cos(angle*0.01745)*12, sin(angle*0.01745)*12, 0 })
+
+Then each frame you can check it:
+
+    physics.hitWall(b)   >> 1 if it stopped against a wall (clean it up!) <<
+    physics.stop(b)      >> stop it moving <<
+
+Tip: keep all your flying bullets in a  list  so you can update and remove them easily." { color: #c9d1d9 }
+        separator
+        text "GRAVITY (FALLING OBJECTS)" { color: #ffed3c, font: T }
+        text "physics.gravity is a different tool from physics.push above - it's for things that should just fall, like a platformer character or a dropped item, not flying bullets. Set it once, then add it to a vertical speed yourself every frame:
+
+    float vy = 0
+
+    setup { physics.gravity(700) }
+    update {
+        vy = vy + physics.gravity     >> already scaled to this frame's length <<
+        adjvcr({0,0,0},{0, vy * 0.016, 0},{1,1,1},1)   >> move object 1 down <<
+        if (collide.detect(1, 1)) { vy = 0 }           >> hit the ground -> stop falling <<
+    }
+
+Bigger numbers in physics.gravity(...) fall faster. Reset vy to 0 (or a small negative number) when you jump." { color: #c9d1d9 }
+        separator
+        text "AI NAVIGATION (SMART ENEMIES)" { color: #6cf09a, font: H }
+        text "Want a monster that chases you AROUND walls instead of getting stuck on them? That's navigation. Glass finds a path through the maze for you, Unity-style.
+
+    nav.setDestination(1, 10, 300, 260)   >> maze 1: send object 10 to (300,260) <<
+
+Call it once. From then on the engine walks object 10 along the path, around every wall, until it arrives. To chase a moving thing (like the player), use follow and call it every frame:
+
+    update {
+        nav.follow(1, 10, 101, 0.9)       >> object 10 hunts object 101 at speed 0.9 <<
+    }
+
+follow is smart: it only re-plans when the target moves to a new tile, so it's cheap to call every frame." { color: #c9d1d9 }
+        separator
+        text "NAVIGATION HELPERS" { color: #ffed3c, font: T }
+        text "    nav.reachable(1, 10, 101)     >> 1 if object 10 CAN get to object 101, else 0 <<
+    nav.arrived(10)                >> 1 once object 10 finished its path <<
+    nav.remainingDistance(10)      >> how far it still has to walk <<
+    nav.stop(10)                   >> cancel the path; it stops <<
+
+A classic pattern - only chase when there's a clear route, otherwise wander:
+
+    if (nav.reachable(1, 10, 101)) {
+        nav.follow(1, 10, 101, 1)
+    }
+
+The maze must have a  mazeID  (like mazeID: 1) so navigation knows which map to use." { color: #c9d1d9 }
+        separator
+        text "SOUND" { color: #6cf09a, font: H }
+        text "Play a sound file and keep its id, so you can control it later:
+
+    id = audio.playSound \"boom.mp3\" { speed: 1, volume: 1 }
+
+Loading the SAME sound many times (footsteps, gunshots) is wasteful - preload it once as a clip, then play the clip by name instead of a filename:
+
+    audio.clip Shot = audio.gatherClip { \"gunshot.mp3\" }
+    id = audio.playSound (Shot) { volume: 0.8 }     >> note the ( ) around a clip <<
+
+Control what's already playing with its id:
+
+    audio.pauseCurrent { audioID: id, fadeAmount: 5 }   >> fades out over time, not a hard cut <<
+    audio.changeVolume { audioID: id, volume: 50 }
+    audio.playLast     { audioID: id }                  >> resume it <<
+
+And check on things in general:
+
+    audio.isPlaying      >> 1 if anything (a sound OR a web tab) is currently audible <<
+    audio.getAudioId     >> the id of whatever's playing right now <<" { color: #c9d1d9 }
+        separator
+        text "BIT-CRUSHING AND RESAMPLING SOUND" { color: #ffed3c, font: T }
+        text "Two extra playSound settings warp the sound itself, not just its volume - great for retro/lo-fi effects:
+
+    audio.playSound \"boom.mp3\" { quality: -60, hertz: 8000 }
+
+- quality goes from -100 (crunchy, few bits) to 100 (clean, the default).
+- hertz resamples it (1400 to 120000) - low numbers sound crunchy/old, like a walkie-talkie.
+
+These two need the optional  miniaudio  package installed - without it they're just ignored and the sound plays normally (speed and volume always work either way)." { color: #c9d1d9 }
+        separator
+        text "3D POSITIONAL AUDIO AND SOUND PROPAGATION" { color: #6cf09a, font: H }
+        text "Inside a raycast scene, a sound can come from a real point in the world instead of just playing flat and centered - it pans left/right based on where it is relative to you, fades with real walking distance (not a straight line through walls), and picks up a bit of echo that gets stronger in tighter rooms:
+
+    id = audio.playSound \"boom.mp3\" { volume: 1,
+        x: hitX, y: hitY,
+        radius: 10,
+        is3D: true,
+        realtimeRef: false
+    }
+
+- is3D: true turns all of this on. Without it, playSound behaves exactly like before - flat, centered, no position at all.
+- x, y are the sound's WORLD position (pairs naturally with raycast.cast's hitX/hitY). Leave them out and it defaults to your own position - no distance falloff then, just the room echo.
+- parent (an svc number OR a name/label, same idea as raycast{}'s own parent:) makes the sound FOLLOW that object every frame instead of sitting at a fixed spot:
+
+    id = audio.playSound \"roar.mp3\" { volume: 1, parent: monster1, radius: 15, is3D: true, loop: true }
+
+A monster's roar genuinely moves with it as it walks around, re-measured every frame the same way your own distance/pan is - not frozen wherever it happened to be when the sound started. parent: takes over from x/y if both are given. If the parented object gets destroyed mid-sound, it doesn't error or cut out - it just keeps playing from wherever that object last was.
+- radius is how far away (in cells of WALKING distance, not straight-line) it fades to silent.
+- realtimeRef controls how the walking-distance calculation is cached - see below.
+
+HOW FAR AWAY SOMETHING REALLY IS: a source doesn't fade out by straight-line distance - it fades by how far you'd actually have to WALK to reach it, going around walls the same way nav.follow does. A speaker five rooms over doesn't bleed through solid walls just because it happens to be geometrically close; it has to actually have a walkable path within radius cells. On top of that, a source with no direct line of sight to you (blocked by a wall, even if the walking path is short) gets extra attenuation on top of the raw distance - going around a corner costs more than the walking distance alone suggests, same as it does in real life." { color: #c9d1d9 }
+        separator
+        text "realtimeRef AND CACHING (NOT A LITERAL EDITOR BAKE)" { color: #ffed3c, font: T }
+        text "Sound sources are usually created dynamically at runtime (a script calling playSound with whatever x/y it wants, whenever it wants) - unlike lighting, there's no fixed list of sources to precompute ahead of time in the editor. So instead, the walking-distance calculation is cached from the LISTENER's current cell and shared across every active 3D sound at once:
+
+- realtimeRef: false (the default) reuses that cached calculation until you actually walk into a new cell - measured directly: about 4500x cheaper than recomputing it, for as long as you're standing in the same cell. The real cost only happens right when you cross into a new one.
+- realtimeRef: true recomputes it fresh every single frame, even for tiny movements within the same cell. Measured directly on a 26x26 level: about 4ms per sound, per frame. Fine for one or two sources; adds up fast with many at once - use it sparingly, and mostly for something whose surroundings can change (a wall coming down), not by default.
+
+This means realtimeRef: false is already about as cheap as it gets for almost every use case - there's rarely a reason to reach for true unless the room's actual shape is changing under you." { color: #c9d1d9 }
+        separator
+        text "WHAT'S LIVE NOW, AND WHY IT WASN'T BEFORE" { color: #ffed3c, font: T }
+        text "VOLUME, PITCH (doppler), PAN, the occlusion low-pass, and the reverb CHARACTER all genuinely keep tracking every frame now - walk around a playing sound and its panning, muffling, and room character update live, the same sound the whole time, not restarted.
+
+This wasn't always true, and the reason is worth understanding: Qt's normal audio player has no live pan/balance control at all (confirmed directly against the docs) - once a sound starts, its stereo image is fixed forever. The fix wasn't a workaround, it's a different, real audio-mixing engine underneath: is3D sounds are decoded once and then mixed sample-chunk-by-sample-chunk in real time, with pan/gain/filtering/reverb read fresh every chunk - genuinely live, not baked into a file. Ordinary (non-3D) sounds still use the simple player, since they don't need any of this.
+
+Occlusion (no direct line of sight to the source) does two things, continuously: it adds extra distance penalty on top of the raw walking distance, AND it applies a real low-pass filter - not just quieter, genuinely muffled, the same way a real sound loses its highs going through a wall or around a corner, and it updates the instant you cross behind cover, not just once. Measured directly: a fully-occluded source loses about 85-90% of its high-frequency content compared to a clear line of sight." { color: #c9d1d9 }
+        separator
+        text "PARENTING A SOUND TO A MOVING OBJECT" { color: #ffed3c, font: T }
+        text "A sound doesn't have to sit at a fixed point - parent: makes it follow an object every frame instead, the same idea as raycast{}'s own parent: (an svc number or a name/label both work):
+
+    id = audio.playSound \"roar.mp3\" { volume: 1, parent: monster1, radius: 15, is3D: true, loop: true }
+
+A monster's roar genuinely moves with it as it walks - its position, pan, distance falloff, and occlusion are all re-measured fresh every frame from wherever that object currently is. If the parented object is destroyed mid-sound (say, the monster died), nothing errors or cuts out - the sound just keeps playing from wherever it was last seen." { color: #c9d1d9 }
+        separator
+        text "REVERB PRESETS (MODELED ON HOW HALF-LIFE 2 ACTUALLY DOES IT)" { color: #ffed3c, font: T }
+        text "Worth knowing exactly what this is and isn't: Source engine's famously convincing room acoustics are NOT ray-traced bounces computed ahead of time. Its 'automatic' DSP mode measures the geometry around the PLAYER live (cheap, coarse - not a full simulation), then picks from a library of about 28 hand-tuned reverb presets ('sewer pipe', 'hallway', 'prefab metal', 'outside'...) crafted by an actual audio engineer, not derived from physics. Glass's room_scale_at (see BAKING below) is that same idea: a cheap, listener-centered geometry measurement.
+
+What changed here to get closer to that sound: instead of one reverb formula that scales continuously with how enclosed a room is, Glass now picks between distinct, separately-tuned CHARACTERS - closet, small_room, hallway, large_hall, outdoor - based on that same room_scale measurement, the same way Source picks a preset rather than computing one from scratch. Measured directly: a closet's reverb tail lasts ~34ms, a small room ~111ms, a hallway ~286ms, a large hall ~435ms - genuinely different PLACES, not just different amounts of the same echo. This happens automatically AND continuously - is3D sounds pick the right preset for wherever the listener currently is, live, nothing extra to write." { color: #c9d1d9 }
+        separator
+        text "WHAT THIS STILL ISN'T" { color: #ffed3c, font: T }
+        text "NOT real acoustic simulation - no convolution, no true sound-wave reflections. Each preset is a multi-tap echo (3-7 taps depending on the preset) with the whole tail darkened by one low-pass pass, so it loses its highs as it decays the way a real room's reflections do, rather than repeating the same bright echo over and over. That's a real, useful effect, and combined with the walking-distance/occlusion behavior above it produces genuinely convincing moments for a level built out of a grid maze - just don't mistake it for physics.
+
+One thing worth checking if is3D ever seems to be doing nothing at all (no pan, no echo, no muffling, just flat volume): quality/hertz/pan/reverb/occlusion all silently need the optional miniaudio package. Without it, Glass logs exactly that the moment it happens instead of failing silently - check the log if a 3D sound seems flat." { color: #c9d1d9 }
+        separator
+        text "POST-PROCESSING" { color: #6cf09a, font: H }
+        text "A *.postEffect defines a reusable post-processing profile - a named bundle of screen effects, loaded and swapped at runtime by name, the same idea as a URP volume profile in Unity:
+
+    *.postEffect {
+        post.name = \"testing\"
+        post.cache = true
+        post.quality = 100
+
+        effect {
+            postEffects.vignette(intensity: 0.7, smoothness: 0.4)
+            postEffects.bloom(intensity: 0.3, radius: 6)
+        }
+    }
+
+- post.name is what loadPost/removePost/postQuality refer to it by.
+- post.cache: reserved for future effects that need to precompute something once instead of every frame (none of the current effects need it yet - everything below is already cheap enough to run live).
+- post.quality (0-100): the default quality for this profile; postQuality() changes it at runtime.
+- effect { } is the only place postEffects.* calls are valid - same idea as some calls only working inside setup/update. Each call registers one effect into the profile, in the order written; they run in that order every frame.
+
+CONTROLLING IT FROM SCRIPT:
+
+    loadPost(testing, smoothness: 0.7)   >> swap in a profile, easing in over 0.7 seconds <<
+    loadPost(testing)                     >> no smoothness given = instant, full strength right away <<
+    postQuality(testing, quality: 60)    >> change quality live, even while its active <<
+    removePost(testing)                   >> unload it <<
+
+loadPost always replaces whatever was active before it - only one profile is ever active at a time. The profile name works quoted or not (loadPost(testing) and loadPost(\"testing\") are the same thing), matching parent:'s own quoting rules elsewhere." { color: #c9d1d9 }
+        separator
+        text "EFFECTS BUILT SO FAR" { color: #ffed3c, font: T }
+        text "postEffects.vignette(intensity:, smoothness:) - darkens the screen edges.
+postEffects.bloom(intensity:, radius:) - a soft glow around bright areas (honest note: a whole-frame blur added back additively, not true per-pixel-threshold HDR bloom - see its own doc for why).
+postEffects.colorGrading(tint:, saturation:, contrast:, brightness:) - all four knobs work independently; tint is a quoted hex color, the rest are numbers.
+postEffects.filmGrain(intensity:, size:) - animated noise, genuinely flickers frame to frame. Measured directly: about 3.2ms on a 640x480 frame (roughly a fifth of a 60fps budget) - real, worth being mindful of if stacking several effects at once.
+postEffects.tonemapping(strength:) - a filmic contrast + highlight-rolloff look. Honest note: not true HDR tonemapping, since there's no HDR data here to begin with.
+postEffects.whiteBalance(temperature:, tint:) - warm/cool and green/magenta shift.
+postEffects.antiAliasing(strength:) - softens the raycaster's hard per-column edges. Honest note: a light blur, not true FXAA/MSAA.
+postEffects.motionBlur(strength:) - a fading trail on fast movement/turning. Honest note: an accumulation-buffer trail, not true per-pixel velocity vectors - this one and autoExposure are the first two effects that need MEMORY across frames (see STATEFUL EFFECTS below).
+postEffects.autoExposure(speed:, target:, strength:) - gradually brightens dark scenes and dims bright ones toward a target, like a camera adjusting.
+
+All nine are verified with actual pixel measurements, not just \"it runs\" - each one is a true no-op at its default/zero setting, and each one\'s effect on real pixels has been measured directly." { color: #c9d1d9 }
+        separator
+        text "STATEFUL EFFECTS (MOTION BLUR, AUTO EXPOSURE)" { color: #ffed3c, font: T }
+        text "Most effects here are pure functions - same input, same output, every time. motionBlur and autoExposure are different: they remember something across frames (motionBlur remembers recent frames to build a trail; autoExposure remembers its current brightness correction so it eases toward a target instead of snapping). This means a single, isolated call to either one does very little - motionBlur genuinely needs to run every frame to build up a trail, and autoExposure needs repeated frames to converge. Both work correctly in a real game (effect{} runs every frame automatically) - just don't expect either to do much if you test them with one-off calls." { color: #c9d1d9 }
+        separator
+        text "WHAT THIS ACTUALLY IS UNDER THE HOOD" { color: #ffed3c, font: T }
+
+        text "Worth being honest about: this engine has no GPU/shader pipeline at all - the raycaster draws through QPainter on the CPU, not OpenGL. That rules out true GPU-shader effects (real screen-space reflections, ray-marched volumetric fog) - those need per-pixel iterative work across millions of pixels every frame, a different order of expensive than anything else in this engine does in real time.
+
+What IS real: every effect here uses the same trick already proven elsewhere in Glass - native, whole-image Qt operations (gradients, composite modes, the scale-down/up blur also used for the lightmap's own softening pass) instead of a per-pixel Python loop. That keeps them genuinely cheap regardless of resolution. When no post effect is active - which is every existing project, unless you specifically use this - rendering is pixel-for-pixel identical to before this feature existed; verified directly, not assumed.
+
+Currently built: vignette, bloom, color grading, film grain, tonemapping, white balance, anti-aliasing, motion blur, and auto exposure (see EFFECTS BUILT SO FAR below) - nine of URP's list. What's left: lens distortion, ambient occlusion, depth of field, and true SSR/volumetric fog would all need either a depth-buffer capture (not built yet) or faking with a classic 2D trick, given the hardware constraint above." { color: #c9d1d9 }
+        separator
+        text "DYNAMIC LIGHTS (MOVE AND RECOLOR LIVE)" { color: #6cf09a, font: H }
+        text "A light{} block inside raycast{} is baked - pixel-perfect shadows, but it can never move or change color without a full re-bake. Measured directly: one re-bake, even at the capped LIVE resolution, took 1.2 seconds - about 72x an entire 60fps frame budget. That's not a small cost to optimize away, it's a hard wall: a shadow-casting light genuinely cannot move every frame with this architecture.
+
+light.create is the other half of that tradeoff - a light that's cheap enough to move and recolor every single frame, in exchange for no shadow-casting at all. It shines straight through walls; there's no per-pixel occlusion test for it, which is exactly what keeps it cheap (measured: under 0.01ms per sample even with 5 active at once):
+
+    lid = light.create { mazeID: 1, parent: \"monster1\", color: \"#ff4422\", radius: 4, intensity: 1.3 }
+    light.setColor(lid, \"#ff0000\")     >> instant, no re-bake <<
+    light.setPos(lid, 400, 300)         >> clears parent: tracking <<
+    light.destroy(lid)
+
+parent: follows an object every frame - the same idea as raycast{}'s own parent:, and audio.playSound's. Works quoted or not (parent: monster1 and parent: \"monster1\" are the same thing) and with an svc number too (parent: 50). color still needs quotes, for an unrelated reason: a bare # starts a comment in this language, so color: #ff8800 silently comments out everything after it on that line - always write color: \"#ff8800\".
+
+Use light{} for anything static - room ambience, torches that don't move, anything where shadows matter. Use light.create for anything that needs to move or change color: a torch a monster carries, a pulsing warning light, a muzzle flash, a projectile's glow." { color: #c9d1d9 }
+        separator
+        text "BAKING THE ROOM ACOUSTICS" { color: #ffed3c, font: T }
+        text "The 'how enclosed is this room' measurement behind realtimeRef: false is cheap, but the very first time each room gets checked, someone has to actually walk the geometry once. Bake every room ahead of time from the editor's Baking tab (same tab as lighting) with Bake audio acoustics, so gameplay never pays that first-time cost. This genuinely writes a file (roomscale_<mazeID>.json, next to your lightmap_<mazeID>.png) into the project - it survives closing the editor, and the real game picks it up automatically the next time it loads that maze.
+
+Sounds you fire rarely (footsteps, ambient loops, doors) can comfortably use is3D any time. For something you trigger very fast and often (rapid gunfire, say), know that the echo effect itself takes a small moment to compute each time it's applied - fine for a shot every so often, worth testing for a machine gun.
+
+One real limit worth knowing: is3D's stereo panning and echo are whole-file passes, and they only make sense for short sounds. Past about 12 seconds of audio, Glass skips them automatically (logging why) and falls back to plain volume-based distance falloff instead - so a multi-minute background song still fades as you leave the room, it just won't pan or echo. Trying to force full pan+reverb processing onto something that long would take tens of seconds of dead silence before the sound could even start." { color: #c9d1d9 }
+        separator
+        text "PARTICLES" { color: #6cf09a, font: H }
+        text "A particleSystem is a little cloud of dots that spray out and fade - sparks, smoke, confetti, muzzle flashes:
+
+    particleSystem {
+        count: 40          >> how many particles per burst <<
+        life: 1.2          >> how many seconds each one lives <<
+        speed: 90          >> how fast they fly outward <<
+        spread: 360        >> the cone they spray into, in degrees (360 = every direction) <<
+        direction: -90     >> 0 = right, -90 = up, 90 = down <<
+        size: 5
+        color: #ffcb6b
+        gravity: 0         >> set above 0 to make them fall as they fly <<
+        loop: true         >> keep bursting forever, or false for just once <<
+    }
+
+Set  rate  instead of leaving it out to get a steady stream instead of one-shot bursts (rate is particles PER SECOND)." { color: #c9d1d9 }
+        separator
+        text "ONE-OFF BURSTS FROM SCRIPT" { color: #ffed3c, font: T }
+        text "For a burst that happens at a specific moment and place - an explosion where a bullet hit, say - call burst() directly instead of placing a particleSystem:
+
+    burst(hitX, hitY, \"#ff6a3c\", 30, 200)   >> x, y, color, count, speed <<
+
+Great for pairing with raycast.cast - fire a burst right where the shot landed." { color: #c9d1d9 }
+        separator
+        text "MAKING PARTICLES REAL 3D" { color: #ffed3c, font: T }
+        text "By default, both particleSystem and burst() are flat 2D screen overlays - they don't know a raycast camera exists, so they always sit on top of the 3D view at the same screen spot no matter where you're looking. Inside a raycast scene, that's usually not what you want.
+
+Add  true  as a 6th argument to burst() to make it a REAL world-space burst instead - it projects through the camera like a raycastObject billboard, shrinks with distance, and correctly hides behind a wall instead of floating in front of everything:
+
+    burst(hitX, hitY, \"#ffcb6b\", 24, 160, true)   >> the true is the whole difference <<
+
+particleSystem gets the same upgrade with  mode: 3d  - and since it's no longer laid out on screen, it needs a world x/y instead:
+
+    particleSystem { mode: 3d, x: 260, y: 140, rate: 25, speed: 40, spread: 40, direction: -90, color: #ff8a3c, size: 5 }
+
+That's a standing torch-flame effect sitting AT a real point in the maze, correctly occluded by walls, rather than a decal stuck to the screen." { color: #c9d1d9 }
+        separator
+        text "LIT PARTICLES" { color: #ffed3c, font: T }
+        text "A 3D particle can also pick up the SAME baked lighting your walls and billboards already use, instead of always drawing at its flat, full color. Add one more true after the 3D flag on burst():
+
+    burst(hitX, hitY, \"#ffcb6b\", 24, 160, true, true)   >> is3D, then lit <<
+
+...or  light: true  on a 3D particleSystem:
+
+    particleSystem { mode: 3d, x: 260, y: 140, rate: 25, color: #ff8a3c, size: 5, light: true }
+
+A lit spark that flies into a dark corner dims along with everything else there, rather than glowing at full brightness regardless of the room's lighting. This only does anything when the particle is ALSO 3D - flat 2D particles have no position in the maze to sample a light level from." { color: #c9d1d9 }
+        separator
+        text "3D PARTICLE PHYSICS: GRAVITY, BOUNCE, SHRINK, TEXTURES" { color: #6cf09a, font: H }
+        text "In 3D mode, gravity pulls a particle down a REAL height axis (separate from its x/y position on the map), so it actually looks like falling in the first-person view instead of drifting sideways across the floor. A few more settings build on that:
+
+    particleSystem {
+        count: 40
+        life: 1.2
+        speed: 90
+        spread: 360
+        direction: -90
+        size: 5
+        color: #ffcb6b       >> or a texture path - see below <<
+        gravity: 200         >> pulls it DOWN in height, in 3D mode <<
+        bounceA: 0.3         >> 0 = never bounces; higher = bouncier <<
+        sizeOverLife: 1      >> 0 = stays the same size; 1 = shrinks to nothing <<
+        loop: true
+        mode: 3d
+        x: 260
+        y: 140
+        light: true
+    }
+
+bounceA and sizeOverLife work on burst() too, as two more trailing arguments after lit:
+
+    burst(hitX, hitY, \"#ffcb6b\", 24, 160, true, true, 0.4, 1.0)
+    >>                                     is3D  lit  bounceA  sizeOverLife <<
+
+With bounceA at 0, a particle that reaches the floor just lands and stays there - no bounce, but it still lands (gravity always applies once it's set, bounceA only controls what happens on impact). Above 0, it bounces back up (and off walls too), losing a little energy each bounce until it settles. Both bounceA and sizeOverLife only matter in 3D mode - flat 2D particles have no floor or wall to hit, and no reason not to just fade normally." { color: #c9d1d9 }
+        separator
+        text "TEXTURED PARTICLES" { color: #ffed3c, font: T }
+        text "color doesn't have to be a color - hand it an image path instead (the exact same rule as sprite: elsewhere: anything that doesn't start with # is treated as a picture) and the particle draws as a small textured billboard instead of a flat dot:
+
+    particleSystem { mode: 3d, x: 260, y: 140, color: \"ember.png\", size: 8 }
+    burst(hitX, hitY, \"spark.png\", 20, 160, true)
+
+Handy for debris chunks, glowing embers, or anything that doesn't read well as a plain circle." { color: #c9d1d9 }
+        separator
+        text "PACKAGES (REAL PYTHON CODE)" { color: #6cf09a, font: H }
+        text "Glass can also run real Python alongside your .glass file, for things the language itself can't do. This is a DIFFERENT feature from importing a 3D model below - same word, two different jobs.
+
+    import helper                    >> loads helper.py from your project folder <<
+    import mc from \"mclauncher.py\"   >> loads a file under a chosen name <<
+
+A Python file you import can define functions; a button calls one with  call: :
+
+    button \"Run it\" { call: helper.doSomething }
+
+BE CAREFUL: a package can run ANY Python, exactly like a Unity asset or an npm package - it's not sandboxed. Only import files you wrote yourself or actually trust. Glass restricts it to files inside your own project folder (no reaching outside it), but inside that folder it can do anything Python can do." { color: #c9d1d9 }
+        separator
+        text "SYSTEM REQUIREMENTS (#overrideOPLim)" { color: #6cf09a, font: H }
+        text "For a demanding game, you can declare how much RAM it's built for and let Glass warn players whose PC might not keep up - like the minimum/recommended specs on a Steam page. This needs a special line at the VERY TOP of the file, before anything else - even before your variables:
+
+    #overrideOPLim {
+        ramAllocated: g3
+        useCPU: true
+        useARam: true
+    }
+
+    *.main {
+        ...
+    }
+
+ramAllocated is a CAP you're declaring (g/m/k = GB/MB/KB), not a reservation - Glass never actually grabs that memory for you. It just powers a comparison." { color: #c9d1d9 }
+        separator
+        text "CHECKING IF THE PLAYER QUALIFIES" { color: #ffed3c, font: T }
+        text "dUMR (\"Does User Meet Requirement\") is true/false, comparing the PLAYER's real total RAM against your declared ramAllocated. It's always available once ramAllocated is set - warn them with a real popup:
+
+    setup {
+        if (dUMR == 0) {
+            alert(\"Your PC may not meet the recommended RAM for this game!\")
+        }
+    }
+
+alert(\"message\") pops a real message box - from a script like this, OR from any button: button \"Info\" { action: alert, message: \"Hi!\" }." { color: #c9d1d9 }
+        separator
+        text "WATCHING LIVE USAGE (useARam)" { color: #ffed3c, font: T }
+        text "By itself, ramAllocated only ever feeds that one dUMR check when the game loads. Add  useARam: true  to also watch this game's ACTUAL memory use the whole time it's running (checked every couple of seconds), so you can react if it creeps past your own declared cap:
+
+    update {
+        if (ram.overLimit == 1) {
+            alert(\"Running low on the RAM budget - something may be leaking!\")
+        }
+    }
+
+Nothing gets force-stopped automatically - Glass just tells you, and you decide what to do about it." { color: #c9d1d9 }
+        separator
+        text "useCPU AND useGPU" { color: #ffed3c, font: T }
+        text "Two more switches live in the same block:
+
+    useCPU: true   >> raises CPU-side simulation budgets, e.g. the AI pathfinding search limit on big maps <<
+    useGPU: true   >> reserved for later - Glass's renderer is pure software today, so this doesn't change anything yet <<
+
+Both, plus useARam, are COMPILE-TIME ONLY: they're set once from the #overrideOPLim block and can't be changed by a variable while the game runs, even by accident - a script line like  useCPU = false  just creates an unrelated ordinary variable with that name and touches nothing real." { color: #c9d1d9 }
+        separator
+        text "IMPORTING 3D MODELS (.OBJ FROM PROBUILDER)" { color: #6cf09a, font: H }
+        text "Built a level in Unity's ProBuilder? Export it as an OBJ (File -> Export -> Obj) and Glass can raycast it as a level - materials and all. Import it in setup, then point a raycast at it:
+
+    setup {
+        mesh.import(\"levels/room.obj\", 1)   >> parse + flatten to a grid, store as mesh 1 <<
+        mesh.createCollider(1)              >> so you bump into its walls <<
+        mesh.create(1)                      >> confirm it's ready (returns 1) <<
+    }
+
+    raycast {
+        mesh: 1                             >> render mesh 1 instead of a map <<
+        parent: \"player\"
+        collide: true
+        mazeID: 1
+    }
+
+Glass flattens the model top-down: standing walls become wall cells (keeping their material colors from the .mtl), floors become floor tiles, and heights collapse to full-height walls. It's perfect for ProBuilder blockouts. Add a third number to control detail:  mesh.import(\"room.obj\", 1, 48)  (bigger = finer grid).
+
+To inspect a model first, open the  3D View  button in the toolbar: it shows the mesh in a Unity-style scene view (drag to orbit, wheel to zoom, W for wireframe) and hands you a ready-made .glass snippet." { color: #c9d1d9 }
+        separator
+        text "SCENE VIEW (A MAP FROM ABOVE)" { color: #6cf09a, font: H }
+        text "In the editor there's a  Scene view  button. Turn it on and your 3D maze is drawn from ABOVE, like a map: walls, floor colors, your objects as dots, and the player as a green dot with a cone showing where they look.
+
+Turn it off for  Game view  (the normal first-person 3D). Scene view is just for building levels - the real game always shows the 3D view." { color: #c9d1d9 }
+        separator
+        text "A TINY COMPLETE GAME" { color: #6cf09a, font: H }
+        text "Here is a whole miniature shooter. Read it slowly - you now know every piece!
+
+    int hp = 100
+    float angle = 0
+
+    *.main {
+        menu.dynamic
+        vcr.colide \"player\" { size: 8, color: #05070b, x: 60, y: 60, svc: 101 }
+        vcr.raycastObject \"imp\" { color: #e23a2a, x: 260, y: 60, svc: 10 }
+        raycast {
+            material \"1\" { color: #6cf09a }
+            map: [ \"1111111\", \"1.....1\", \"1.....1\", \"1111111\" ]
+            parent: player   collide: true   mazeID: 1   cellSize: 40
+        }
+        text \"HP {hp}\" { center: center, color: #fff }
+        setup { cursor.lock   collide.createMesh(1) }
+        update {
+            angle = angle + mouse.dx * 0.15
+            adjvcr({0,0, mouse.dx*0.15},{0,0,0},{1,1,1},101)
+            if (input.getHeld(\"w\")) { adjvcr({0,0,0},{cos(angle*0.01745)*1.5, sin(angle*0.01745)*1.5,0},{1,1,1},101) }
+            if (input.getClick(\"space\")) {
+                raycast.cast(1, 101)
+                if (hitType == 1) { destroy(hitSvc) }
+            }
+        }
+    }" { color: #c9d1d9 }
+        separator
+        text "QUICK CHEAT SHEET" { color: #6cf09a, font: H }
+        text "Variables" { color: #ffed3c, font: T }
+        text "int  float  double  bool  string  list
+show in text with {name} . change with  name = ..." { color: #c9d1d9 }
+        text "Control" { color: #ffed3c, font: T }
+        text "if (test) { }      for i = a to b { }      && (and)  || (or)
+after 2s { }   repeat n { }      screen.width / screen.height" { color: #c9d1d9 }
+        text "Your functions" { color: #ffed3c, font: T }
+        text "function name(a, b) { return a + b }   then use  name(1, 2)  anywhere" { color: #c9d1d9 }
+        text "Lists" { color: #ffed3c, font: T }
+        text "add get set remove removeAt contains indexOf clear pop last  .count" { color: #c9d1d9 }
+        text "Saved preferences" { color: #ffed3c, font: T }
+        text "pref.save(\"name\", value)   pref.load(\"name\")  -> 0 if never saved" { color: #c9d1d9 }
+        text "Math" { color: #ffed3c, font: T }
+        text "sqrt abs floor round min max clamp random sin cos  lerp slerp lerpAngle" { color: #c9d1d9 }
+        text "Input" { color: #ffed3c, font: T }
+        text "input.getHeld(\"key\")  input.getClick(\"key\")  mouse.dx  mouse.down  cursor.lock
+Name = input \"...\" { }   >> binds what's typed to a variable <<   webInput  >> address bar <<" { color: #c9d1d9 }
+        text "Objects" { color: #ffed3c, font: T }
+        text "vcr.image  vcr.gif  vcr.video  vcr.colide  vcr.raycastObject   adjvcr(turn, move, scale, svc)
+spawnObject  create  clone  destroy  exists   tag: name   properties.get.tag(\"n\")   properties.get.tags(\"n\")" { color: #c9d1d9 }
+        text "Vectors / info" { color: #ffed3c, font: T }
+        text "{x,y,z}   properties.get(svc: N, getProperty.position/scale/rotation/velocity/size [.x])
+getProperty.distance(a,b)   .tag(\"n\") ->1/0   .isTrigger  .friction  .speed  .kind ->string" { color: #c9d1d9 }
+        text "3D world" { color: #ffed3c, font: T }
+        text "raycast { material map floorMap roofMap fov columns fog parent collide mazeID }" { color: #c9d1d9 }
+        text "Shooting / physics" { color: #ffed3c, font: T }
+        text "raycast.cast(maze, svc) -> hitType hitSvc hitDist hitX hitY
+physics.push(svc, {dx,dy,dz})  physics.hitWall  physics.stop   physics.gravity(700)  >> 2D falling <<" { color: #c9d1d9 }
+        text "AI navigation" { color: #ffed3c, font: T }
+        text "nav.setDestination(maze, svc, x, y)   nav.follow(maze, svc, targetSvc, speed)
+nav.reachable  nav.arrived  nav.remainingDistance  nav.stop" { color: #c9d1d9 }
+        text "Sound" { color: #ffed3c, font: T }
+        text "audio.playSound \"f.mp3\" { speed volume quality hertz }   audio.gatherClip  audio.isPlaying
+audio.pauseCurrent  audio.changeVolume  audio.playLast  audio.getAudioId
+3D: { x y radius is3D realtimeRef } - pans, fades with distance, baked room echo" { color: #c9d1d9 }
+        text "Particles" { color: #ffed3c, font: T }
+        text "particleSystem { count life speed spread direction size color gravity bounceA sizeOverLife loop rate mode:3d light }
+burst(x, y, colorOrTexture, count, speed, is3D, lit, bounceA, sizeOverLife)   color can be a texture path" { color: #c9d1d9 }
+        text "Packages" { color: #ffed3c, font: T }
+        text "import helper   import mc from \"file.py\"   button { call: helper.function }" { color: #c9d1d9 }
+        text "System requirements" { color: #ffed3c, font: T }
+        text "#overrideOPLim { ramAllocated: g3, useCPU: true, useGPU: true, useARam: true }  (must be the very first thing in the file)
+dUMR -> 0/1   ram.overLimit -> 0/1 (needs useARam)   alert(\"msg\")   button { action: alert, message: \"msg\" }" { color: #c9d1d9 }
+        text "Editor tools" { color: #ffed3c, font: T }
+        text "Baking tab: light quality/shadows + audio-reverb acoustics.   Animator: frames -> animated GIF.   Scene view: top-down map." { color: #c9d1d9 }
+        separator
+        text "THE END - NOW GO BUILD!" { color: #6cf09a, font: H }
+        text "You've reached the end. You know variables, lists, loops, input, math, objects, the 3D maze, shooting, spawning, and physics. That's a whole game engine!
+
+The best way to learn is to CHANGE things and press Update. Break stuff. Fix it. Make the walls purple. Make a hundred coins. Have fun. :)" { color: #c9d1d9 }
+    }
+}

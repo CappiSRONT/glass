@@ -1,0 +1,234 @@
+# Glass blocklist - one domain per line (or hosts format "0.0.0.0 domain").
+# Lines starting with # or ! are ignored. Subdomains are blocked automatically.
+# This is a starter list. Paste any hosts-format list (e.g. StevenBlack) below.
+
+# --- ad networks ---
+doubleclick.net
+googlesyndication.com
+googleadservices.com
+google-analytics.com
+googletagmanager.com
+googletagservices.com
+adservice.google.com
+pagead2.googlesyndication.com
+adnxs.com
+adsrvr.org
+rubiconproject.com
+pubmatic.com
+openx.net
+criteo.com
+criteo.net
+taboola.com
+outbrain.com
+adform.net
+casalemedia.com
+33across.com
+moatads.com
+serving-sys.com
+2mdn.net
+amazon-adsystem.com
+advertising.com
+yieldmo.com
+sharethrough.com
+smartadserver.com
+teads.tv
+indexww.com
+bidswitch.net
+gumgum.com
+
+# --- trackers / analytics ---
+scorecardresearch.com
+quantserve.com
+hotjar.com
+mixpanel.com
+segment.com
+segment.io
+fullstory.com
+mouseflow.com
+crazyegg.com
+chartbeat.com
+newrelic.com
+nr-data.net
+branch.io
+appsflyer.com
+adjust.com
+kochava.com
+bugsnag.com
+sentry.io
+amplitude.com
+heap.io
+clarity.ms
+matomo.cloud
+
+# --- social trackers ---
+connect.facebook.net
+facebook.com/tr
+pixel.facebook.com
+analytics.tiktok.com
+ads.tiktok.com
+ads-twitter.com
+analytics.twitter.com
+static.ads-twitter.com
+snap.licdn.com
+px.ads.linkedin.com
+
+# === expanded coverage (ad-block tester domains + common trackers) ===
+# -- ad networks / mobile ad SDKs (whole domain = pure trackers) --
+adcolony.com
+media.net
+unityads.unity3d.com
+byteoversea.com
+amazon-adsystem.com
+adsafeprotected.com
+2o7.net
+omtrdc.net
+demdex.net
+scorecardresearch.com
+quantserve.com
+quantcount.com
+taboola.com
+outbrain.com
+zedo.com
+adform.net
+smartadserver.com
+casalemedia.com
+contextweb.com
+sharethrough.com
+teads.tv
+yieldmo.com
+samsungads.com
+realmemobile.com
+# -- analytics / session-replay (pure trackers) --
+googleanalytics.com
+hotjar.io
+luckyorange.com
+luckyorange.net
+freshmarketer.com
+freshworks.com
+fullstory.com
+mixpanel.com
+segment.com
+segment.io
+amplitude.com
+heap.io
+heapanalytics.com
+matomo.cloud
+statcounter.com
+chartbeat.com
+crazyegg.com
+mouseflow.com
+inspectlet.com
+clarity.ms
+nr-data.net
+newrelic.com
+# -- error trackers --
+sentry-cdn.com
+getsentry.com
+sentry.io
+ingest.sentry.io
+# -- google (specific tracker subdomains; never the whole domain) --
+analytics.google.com
+click.googleanalytics.com
+adservice.google.com
+googleadservices.com
+www.googleadservices.com
+# -- facebook / meta --
+an.facebook.com
+pixel.facebook.com
+analytics.facebook.com
+# -- twitter / x --
+ads-api.twitter.com
+analytics.twitter.com
+ads-twitter.com
+# -- linkedin --
+ads.linkedin.com
+analytics.pointdrive.linkedin.com
+px.ads.linkedin.com
+# -- pinterest --
+ads.pinterest.com
+log.pinterest.com
+trk.pinterest.com
+analytics.pinterest.com
+# -- reddit --
+events.reddit.com
+events.redditmedia.com
+# -- tiktok / bytedance --
+ads.tiktok.com
+ads-sg.tiktok.com
+ads-api.tiktok.com
+ads-api-sg.tiktok.com
+analytics.tiktok.com
+analytics-sg.tiktok.com
+business-api.tiktok.com
+# -- youtube ad host --
+ads.youtube.com
+# -- yahoo (tracker subdomains) --
+ads.yahoo.com
+geo.yahoo.com
+udcm.yahoo.com
+gemini.yahoo.com
+analytics.yahoo.com
+analytics.query.yahoo.com
+log.fc.yahoo.com
+partnerads.ysm.yahoo.com
+ysm.yahoo.com
+adtech.yahooinc.com
+# -- yandex (tracker subdomains) --
+mc.yandex.ru
+metrika.yandex.ru
+adfox.yandex.ru
+adfstat.yandex.ru
+appmetrica.yandex.ru
+extmaps-api.yandex.net
+offerwall.yandex.net
+# -- apple (analytics/ad subdomains) --
+api-adservices.apple.com
+iadsdk.apple.com
+metrics.mzstatic.com
+metrics.icloud.com
+books-analytics-events.apple.com
+weather-analytics-events.apple.com
+notes-analytics-events.apple.com
+stocks-analytics-events.apple.com
+supportmetrics.apple.com
+# -- xiaomi / miui --
+ad.xiaomi.com
+ad.intl.xiaomi.com
+api.ad.xiaomi.com
+sdkconfig.ad.xiaomi.com
+sdkconfig.ad.intl.xiaomi.com
+data.mistat.xiaomi.com
+data.mistat.india.xiaomi.com
+data.mistat.rus.xiaomi.com
+tracking.rus.miui.com
+tracking.intl.miui.com
+# -- huawei / hicloud --
+grs.hicloud.com
+logbak.hicloud.com
+logservice.hicloud.com
+logservice1.hicloud.com
+metrics.data.hicloud.com
+metrics2.data.hicloud.com
+metrics3.data.hicloud.com
+# -- oppo / oneplus / realme --
+ads.oppomobile.com
+adsfs.oppomobile.com
+open.oneplus.net
+click.oneplus.cn
+iot-logser.realme.com
+iot-eu-logser.realme.com
+bdapi-ads.realmemobile.com
+bdapi-in-ads.realmemobile.com
+# -- samsung --
+smetrics.samsung.com
+nmetrics.samsung.com
+analytics-api.samsunghealthcn.com
+samsunghealthcn.com
+# -- wordpress stats --
+stats.wp.com
+pixel.wp.com
+# -- amazon S3 tracker buckets (exact) --
+advice-ads.s3.amazonaws.com
+analyticsengine.s3.amazonaws.com
+adtago.s3.amazonaws.com
+analytics.s3.amazonaws.com

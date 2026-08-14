@@ -1,0 +1,56 @@
+>>  ============================================================ <<
+>>   mainmenu.glass  -  reference UI showing every v2 feature <<
+>>  ============================================================ <<
+>>   Edit this in the Glass editor (Edit button / Ctrl+E) and watch the <<
+>>   live preview. Save it and the running browser hot-reloads it. <<
+>>  <<
+>>   Your original line is still valid Glass: <<
+>>       websitename.menu ( menu.moveable ) {} <<
+
+*.menu ( menu.moveable menu.resizable menu.closable menu.remember ) {
+    title: Glass
+    background: #161b22
+    color: #6cf09a
+    width: 250
+    x: 24
+    y: 90
+    radius: 12
+
+    >>  scale { 1.5 }    // uncomment to zoom the whole menu (box + text + buttons) <<
+
+    >>  name a font once, reuse it by name below <<
+    textgroup { Heading, timesnewroman }
+    textgroup { UI, arial }
+
+    text "Control panel" { color: #6cf09a, font: Heading }
+
+    webInput "Search or enter address" { height: 34, font: UI }
+
+    button "Reload page"     { action: reload }
+    button "View source"     { action: viewsource }
+    button "Network log"     { action: showlog }
+    separator
+    button "Toggle blocking" { action: toggleblock }
+    button "Strip ads now"   { action: stripads }
+    separator
+
+    >>  a styled button that opens a second "page" (a hidden holder) <<
+    button { { color: #1e88e5, width: 200, height: 34, textgroup: UI } "More options \u25b8" } { action: toggle, target: more }
+
+    holder ( autosize, size: 230, backgroundColor: #11161c, opacity: 0.98, outline: true, outlinecolor: #6cf09a, outlineThickness: 2, hidden: true ) {
+        name: more
+        title: More options
+        link   "DuckDuckGo"     { url: https://duckduckgo.com/html/ }
+        link   "Wikipedia"      { url: https://wikipedia.org }
+        button "Dark-mode page" { js: document.documentElement.style.filter='invert(1) hue-rotate(180deg)' }
+        button "Open the editor"{ action: openeditor }
+        separator
+        button { { color: #e53935, width: 120 } "Close" } { action: toggle, target: more }
+    }
+
+    separator
+    button "Open the Wiki"   { action: wiki }
+    button "Clear my data"   { action: cleardata }
+    button "Reload this UI"  { action: reloadui }
+    button "Quit"            { action: quit }
+}
